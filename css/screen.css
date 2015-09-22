@@ -1,0 +1,208 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+body {
+  line-height: 1; }
+
+ol, ul {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+/* apply a natural box layout model to all elements, but allowing components to change */
+html {
+  box-sizing: border-box; }
+
+*, *:before, *:after {
+  box-sizing: inherit; }
+
+html, body {
+  height: 100%;
+  font-family: 'Lato', sans-serif; }
+
+#map {
+  width: 100%;
+  height: 100%;
+  background-color: #b3d1fd; }
+
+.stage {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: #2e3434;
+  z-index: 20;
+  width: 300px;
+  height: 100%; }
+
+.instructions {
+  color: #9ea09f;
+  font-weight: 300;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 14px;
+  letter-spacing: 0.06em; }
+
+.btn-give-up {
+  text-align: center;
+  font-size: 22px;
+  padding: 20px 0;
+  background: #ec4a4a;
+  color: #7b2727;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  cursor: pointer; }
+
+.map-overlay-wrapper {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  color: #fff;
+  text-align: center;
+  padding-right: 300px; }
+
+.map-overlay-container {
+  background: rgba(0, 0, 0, 0.9);
+  height: 100%;
+  width: 100%; }
+
+.instructions-dialogue {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #65ac70;
+  border-radius: 2px;
+  padding: 26px 40px;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 300;
+  letter-spacing: 0.04em; }
+
+.info-drawer {
+  position: absolute;
+  top: 0;
+  right: 300px;
+  width: 240px;
+  background: #232727;
+  height: 100%;
+  padding: 30px; }
+
+.timer-wrapper {
+  padding: 26px 30px 30px;
+  border-bottom: 1px dotted #1f2323;
+  font-size: 0;
+  text-align: center; }
+
+.time,
+.btn-pause-wrapper {
+  display: inline-block;
+  width: 50%;
+  vertical-align: middle; }
+
+.time {
+  font-size: 28px;
+  color: #9ea09f;
+  font-weight: 400;
+  letter-spacing: 0.04em; }
+
+.btn-pause {
+  background: #eca54a;
+  color: #fff;
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  display: inline-block;
+  font-size: 14px;
+  padding: 6px 10px;
+  border-radius: 2px;
+  cursor: pointer; }
+
+.pause-overlay {
+  display: none; }
+
+.input-wrapper {
+  padding: 26px 30px 30px;
+  background: #292e2e;
+  border-top: 1px dotted #1f2323;
+  border-bottom: 1px dotted #1f2323; }
+
+input {
+  background: #fff;
+  border: 0;
+  outline: 0;
+  width: 100%;
+  font-size: 20px;
+  padding: 10px 14px;
+  border-radius: 2px;
+  color: #2e3434;
+  letter-spacing: 0.02em;
+  font-weight: 400;
+  font-style: italic;
+  text-align: center; }
+
+.score-wrapper {
+  padding: 30px;
+  text-align: center; }
+
+.count-container {
+  color: #fff;
+  font-size: 44px;
+  font-weight: 300; }
+
+.count-correct,
+.count-total {
+  font-weight: 600; }
+
+.continent-list {
+  padding: 26px 30px 30px; }
+
+.continent-list-item {
+  color: #9ea09f;
+  border-bottom: 1px solid #242828;
+  padding-bottom: 4px;
+  margin-top: 20px; }
+  .continent-list-item:first-child {
+    margin-top: 0; }
+
+.continent-count-container {
+  float: right; }
+
+/*# sourceMappingURL=screen.css.map */

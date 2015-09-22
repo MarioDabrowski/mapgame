@@ -1,0 +1,215 @@
+/* apply a natural box layout model to all elements, but allowing components to change */
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Lato', sans-serif;
+}
+
+
+// Google Map
+
+#map {
+  width: 100%;
+  height: 100%;
+  background-color: #b3d1fd;
+}
+
+
+
+// Global Styles
+
+.stage{
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: #2e3434;
+  z-index: 20;
+  width: 300px;
+  height: 100%;
+}
+
+.instructions{
+  color: #9ea09f;
+  font-weight: 300;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 14px;
+  letter-spacing: 0.06em;
+}
+
+.btn-give-up{
+  text-align: center;
+  font-size: 22px;
+  padding: 20px 0;
+  background: #ec4a4a;
+  color: #7b2727;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  cursor: pointer;
+}
+
+.map-overlay-wrapper{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  color: #fff;
+  text-align: center;
+  padding-right: 300px;
+}
+
+.map-overlay-container{
+  background: rgba(0, 0, 0, 0.9);
+  height: 100%;
+  width: 100%;
+}
+
+.instructions-dialogue{
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #65ac70;
+  border-radius: 2px;
+  padding: 26px 40px;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 300;
+  letter-spacing: 0.04em;
+}
+
+.info-drawer{
+  position: absolute;
+  top: 0;
+  right: 300px;
+  width: 240px;
+  background: #232727;
+  height: 100%;
+  padding: 30px;
+}
+
+
+
+// Countdown Timer
+
+.timer-wrapper{
+  padding: 26px 30px 30px;
+  border-bottom: 1px dotted #1f2323;
+  font-size: 0;
+  text-align: center;
+}
+
+.time,
+.btn-pause-wrapper{
+  display: inline-block;
+  width: 50%;
+  vertical-align: middle;
+}
+
+.time{
+  font-size: 28px;
+  color: #9ea09f;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+}
+
+.btn-pause-wrapper{
+
+}
+
+.btn-pause{
+  background: #eca54a;
+  color: #fff;
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  display: inline-block;
+  font-size: 14px;
+  padding: 6px 10px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.pause-overlay{
+  display: none;
+}
+
+
+// Answer box
+
+.input-wrapper{
+  padding: 26px 30px 30px;
+  background: #292e2e;
+  border-top: 1px dotted #1f2323;
+  border-bottom: 1px dotted #1f2323;
+}
+
+input{
+  background: #fff;
+  border: 0;
+  outline: 0;
+  width: 100%;
+  font-size: 20px;
+  padding: 10px 14px;
+  border-radius: 2px;
+  color: #2e3434;
+  letter-spacing: 0.02em;
+  font-weight: 400;
+  font-style: italic;
+  text-align: center;
+}
+
+
+// Score
+
+.score-wrapper{
+  padding: 30px;
+  text-align: center;
+}
+
+.count-container{
+  color: #fff;
+  font-size: 44px;
+  font-weight: 300;
+}
+
+.count-correct,
+.count-total{
+  font-weight: 600;
+}
+
+
+// Contintent listing with current and total count
+
+.continent-list{
+  padding: 26px 30px 30px;
+}
+
+.continent-list-item{
+  color: #9ea09f;
+  border-bottom: 1px solid #242828;
+  padding-bottom: 4px;
+  margin-top: 20px;
+
+  &:first-child{
+    margin-top: 0;
+  }
+}
+
+.continent-count-container{
+  float: right;
+}
+
+
+// Start game overlay
+
+.start-overlay{
+
+}

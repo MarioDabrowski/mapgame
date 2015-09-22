@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Map Game</title>
+  <link rel="stylesheet" type="text/css" href="css/screen.css">
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,900italic,900,700italic,700,400italic,300' rel='stylesheet' type='text/css'>
+</head>
+<body>
+  <!-- Bug -->
+  <!-- - South Sudan doesn't highlight -->
+  <!-- - Vatican city doesn't highlight -->
+
+  <!-- Features -->
+  <!-- List of empty guesses, filling is as you go, organized alphabetically, sorted by continent -->
+  <!-- counter (15 minutes), option to have timer -->
+  <!-- Pause button, blacks out screen -->
+  <!-- Ability to sleect continient, possible multiple -->
+  <!-- Click on empty guesses to pan to country -->
+  <!-- Grey out areas that aren't possible answers -->
+  <!-- Toggle for independent countries vs everything -->
+  <!-- Give up button, show all areas that were missed -->
+  <!-- Add restart button, takes you to the start screen -->
+  <!-- List only, with ability to peak/switch to map -->
+  <!-- About page -->
+  <!-- Capitals, seperate test + intergrated version, double shade for capitals -->
+  <!-- Leaderboard -->
+  <!-- Share buttons -->
+  <!-- Feedback button -->
+
+
+  <!-- Start overlay when the game is launched -->
+  <div class="map-overlay-wrapper start-overlay">
+    <div class="map-overlay-container">
+      <div class="instructions-dialogue">When you type in your first country and hit enter the game will begin.</div>
+    </div>
+  </div>
+
+
+  <!-- Overlay screen with instructions when pause is hit -->
+  <div class="map-overlay-wrapper pause-overlay">
+    <div class="map-overlay-container">
+      <div class="instructions-dialogue">Paused, hit resume to continue.</div>
+    </div>
+  </div>
+
+
+  <!--  -->
+  <div id="map"></div>
+  <div class="stage">
+
+
+    <!-- Timer -->
+    <div class="timer-wrapper">
+      <div class="btn-pause-wrapper"><div class="btn-pause">Pause</div></div>
+      <div class="time">15:00</div>
+    </div>
+
+
+    <!-- Total Score Counter -->
+    <div class="score-wrapper">
+      <div class="count-container">
+        <span class="count-correct">0</span>
+         /
+         <span class="count-total">0</span></div>
+    </div>
+
+
+    <!-- Answer Box -->
+    <div class="input-wrapper">
+      <div class="instructions">Type your answers below.</div>
+      <input type="text" id="input" class="input">
+    </div>
+
+
+    <!-- List of continents with a current and total count of countries -->
+    <div class="continent-list-wrapper">
+      <ul class="continent-list">
+        <li class="continent-list-item" data-region="north-america">
+          North America
+          <span class="continent-count-container">
+            <span class="continent-count-right">0</span> / <span class="continent-count-total">0</span>
+          </span>
+        </li>
+        <li class="continent-list-item" data-region="south-america">
+          South America
+          <span class="continent-count-container">
+            <span class="continent-count-right">0</span> / <span class="continent-count-total">0</span>
+          </span>
+        </li>
+        <li class="continent-list-item" data-region="europe">
+          Europe
+          <span class="continent-count-container">
+            <span class="continent-count-right">0</span> / <span class="continent-count-total">0</span>
+          </span>
+        </li>
+        <li class="continent-list-item" data-region="asia">
+          Asia
+          <span class="continent-count-container">
+            <span class="continent-count-right">0</span> / <span class="continent-count-total">0</span>
+          </span>
+        </li>
+        <li class="continent-list-item" data-region="africa">
+          Africa
+          <span class="continent-count-container">
+            <span class="continent-count-right">0</span> / <span class="continent-count-total">0</span>
+          </span>
+        </li>
+        <li class="continent-list-item" data-region="oceania">
+          Oceania
+          <span class="continent-count-container">
+            <span class="continent-count-right">0</span> / <span class="continent-count-total">0</span>
+          </span>
+        </li>
+      </ul>
+    </div>
+
+
+    <!-- -->
+    <div class="info-drawer" data-region="north-america">
+      <ul class="country-list">
+        <li class="country-list-item">Testing</li>
+        <li class="country-list-item">Testing</li>
+        <li class="country-list-item">Testing</li>
+      </ul>
+    </div>
+
+
+    <!-- -->
+    <div class="btn-give-up">Give Up.</div>
+
+
+    <!-- Button used by the google map fusion layer to update the map -->
+    <!-- Find a better way to do this, this seems hacky -->
+    <div id="invisibleButton"></div>
+  </div>
+
+
+  <!-- Include JS files -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js"></script>
+  <script src="js/google_map.js"></script>
+  <script src="js/timer.js"></script>
+  <script src="js/functions.js"></script>
+</body>
+</html>
