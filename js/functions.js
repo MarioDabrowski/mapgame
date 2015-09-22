@@ -53,18 +53,20 @@ $(document).ready(function(){
       }
 
       // Insert the totals into the categories
-      $('.continent-list-item[data-region="north-america"] .country-count-total').text(countNorthAmerica);
-      $('.continent-list-item[data-region="south-america"] .country-count-total').text(countSouthAmerica);
-      $('.continent-list-item[data-region="europe"] .country-count-total').text(countEurope);
-      $('.continent-list-item[data-region="asia"] .country-count-total').text(countAsia);
-      $('.continent-list-item[data-region="oceania"] .country-count-total').text(countOceania);
-      $('.continent-list-item[data-region="africa"] .country-count-total').text(countAfrica);
+      $('.continent-list-item[data-region="north-america"] .continent-count-total').text(countNorthAmerica);
+      $('.continent-list-item[data-region="south-america"] .continent-count-total').text(countSouthAmerica);
+      $('.continent-list-item[data-region="europe"] .continent-count-total').text(countEurope);
+      $('.continent-list-item[data-region="asia"] .continent-count-total').text(countAsia);
+      $('.continent-list-item[data-region="oceania"] .continent-count-total').text(countOceania);
+      $('.continent-list-item[data-region="africa"] .continent-count-total').text(countAfrica);
 
     }
   });
 
   // When you typed something into the input and hit enter
   $('.input').keypress(function (e) {
+    var currentListHeight;
+
     if (e.which == 13) {
 
       // If the game hasn't started yet, hide the instructions and begin
@@ -98,23 +100,28 @@ $(document).ready(function(){
             // Update the correct continent count
             if (currentItem.subregion == 'Northern America' || currentItem.subregion == 'Central America' || currentItem.subregion == 'Caribbean') {
               countCorrectNorthAmerica += 1;
-              $('.continent-list-item[data-region="north-america"]').text(countCorrectNorthAmerica);
-              $('.info-drawer[data-region="north-america"]').append(inputValue);
+              $('.continent-list-item[data-region="north-america"] .continent-count-right').text(countCorrectNorthAmerica);
+              $('.info-drawer[data-region="north-america"] .country-list').append('<li class="country-list-item">' + inputValue + '</li>');
             } else if (currentItem.subregion == 'South America') {
               countCorrectSouthAmerica += 1;
-              $('.continent-list-item[data-region="south-america"]').text(countCorrectSouthAmerica);
+              $('.continent-list-item[data-region="south-america"] .continent-count-right').text(countCorrectSouthAmerica);
+              $('.info-drawer[data-region="south-america"] .country-list').append('<li class="country-list-item">' + inputValue + '</li>');
             } else if (currentItem.region == 'Europe') {
               countCorrectEurope += 1;
-              $('.continent-list-item[data-region="europe"]').text(countCorrectEurope);
+              $('.continent-list-item[data-region="europe"] .continent-count-right').text(countCorrectEurope);
+              $('.info-drawer[data-region="europe"] .country-list').append('<li class="country-list-item">' + inputValue + '</li>');
             } else if (currentItem.region == 'Asia') {
               countCorrectAsia += 1;
-              $('.continent-list-item[data-region="asia"]').text(countCorrectAsia);
+              $('.continent-list-item[data-region="asia"] .continent-count-right').text(countCorrectAsia);
+              $('.info-drawer[data-region="asia"] .country-list').append('<li class="country-list-item">' + inputValue + '</li>');
             } else if (currentItem.region == 'Oceania') {
               countCorrectOceania += 1;
-              $('.continent-list-item[data-region="oceania"]').text(countCorrectOceania);
+              $('.continent-list-item[data-region="oceania"] .continent-count-right').text(countCorrectOceania);
+              $('.info-drawer[data-region="oceania"] .country-list').append('<li class="country-list-item">' + inputValue + '</li>');
             } else if (currentItem.region == 'Africa') {
               countCorrectAfrica += 1;
-              $('.continent-list-item[data-region="africa"]').text(countCorrectAfrica);
+              $('.continent-list-item[data-region="africa"] .continent-count-right').text(countCorrectAfrica);
+              $('.info-drawer[data-region="africa"] .country-list').append('<li class="country-list-item">' + inputValue + '</li>');
             }
 
             // Trigger a click to allow Google Maps to update (find a better solution for this later)
@@ -125,8 +132,32 @@ $(document).ready(function(){
           }
         }
       }
-    }
 
+      //
+
+      currentListHeight = $('.country-list').height()
+      console.log(currentListHeight);
+    }
+  });
+
+
+  // Open country drawers by clicking on the continents
+
+  var continents = ['north-america', 'south-america', 'europe', 'asia', 'oceania', 'africa'];
+
+  $.each(continents, function(key, value) {
+    $('.continent-list-item[data-region="' + value + '"]').on('click', function () {
+      if (!$(this).hasClass('active')) {
+        $('.continent-list-item').removeClass('active');
+        $('.info-drawer').removeClass('open');
+        $('.info-drawer[data-region="' + value + '"]').toggleClass('open');
+        $(this).addClass('active');
+      } else {
+        $('.continent-list-item').removeClass('active');
+        $('.info-drawer').removeClass('open');
+      }
+
+    });
   });
 
 });

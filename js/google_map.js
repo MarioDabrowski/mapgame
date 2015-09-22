@@ -91,8 +91,7 @@ $(document).ready(function(){
       updateMap(layer, tableId, locationColumn);
     });
 
-}
-
-
-google.maps.event.addDomListener(window, 'load', initialize);
+  }
+  
+  google.maps.event.addDomListener(window, 'load', initialize);
 });
