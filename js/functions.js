@@ -102,31 +102,38 @@ $(document).ready(function(){
               countCorrectNorthAmerica += 1;
               $('.continent-list-item[data-region="north-america"] .continent-count-right').text(countCorrectNorthAmerica);
               $('.info-drawer[data-region="north-america"] .country-list').append('<li class="country-list-item">' + inputValue + '</li>');
+              $('.info-drawer[data-region="north-america"] .info-drawer-message').hide();
             } else if (currentItem.subregion == 'South America') {
               countCorrectSouthAmerica += 1;
               $('.continent-list-item[data-region="south-america"] .continent-count-right').text(countCorrectSouthAmerica);
               $('.info-drawer[data-region="south-america"] .country-list').append('<li class="country-list-item">' + inputValue + '</li>');
+              $('.info-drawer[data-region="south-america"] .info-drawer-message').hide();
             } else if (currentItem.region == 'Europe') {
               countCorrectEurope += 1;
               $('.continent-list-item[data-region="europe"] .continent-count-right').text(countCorrectEurope);
               $('.info-drawer[data-region="europe"] .country-list').append('<li class="country-list-item">' + inputValue + '</li>');
+              $('.info-drawer[data-region="europe"] .info-drawer-message').hide();
             } else if (currentItem.region == 'Asia') {
               countCorrectAsia += 1;
               $('.continent-list-item[data-region="asia"] .continent-count-right').text(countCorrectAsia);
               $('.info-drawer[data-region="asia"] .country-list').append('<li class="country-list-item">' + inputValue + '</li>');
+              $('.info-drawer[data-region="asia"] .info-drawer-message').hide();
             } else if (currentItem.region == 'Oceania') {
               countCorrectOceania += 1;
               $('.continent-list-item[data-region="oceania"] .continent-count-right').text(countCorrectOceania);
               $('.info-drawer[data-region="oceania"] .country-list').append('<li class="country-list-item">' + inputValue + '</li>');
+              $('.info-drawer[data-region="oceania"] .info-drawer-message').hide();
             } else if (currentItem.region == 'Africa') {
               countCorrectAfrica += 1;
               $('.continent-list-item[data-region="africa"] .continent-count-right').text(countCorrectAfrica);
               $('.info-drawer[data-region="africa"] .country-list').append('<li class="country-list-item">' + inputValue + '</li>');
+              $('.info-drawer[data-region="africa"] .info-drawer-message').hide();
             }
 
             // Trigger a click to allow Google Maps to update (find a better solution for this later)
             $('#invisibleButton').click();
 
+            // Increase the answer count and update the sidebar answer counter
             answerCount += 1;
             $('.count-correct').text(answerCount);
 
@@ -149,11 +156,25 @@ $(document).ready(function(){
 
   $.each(continents, function(key, value) {
     $('.continent-list-item[data-region="' + value + '"]').on('click', function () {
-      if (!$(this).hasClass('active')) {
+      var $this = $(this);
+
+      if (!$this.hasClass('active')) {
+        var openStatus = $('.continent-list-item').hasClass('active');
+
         $('.continent-list-item').removeClass('active');
         $('.info-drawer').removeClass('open');
-        $('.info-drawer[data-region="' + value + '"]').toggleClass('open');
-        $(this).addClass('active');
+
+        // Check to see if any of the drawers are open, if they are delay the next drawer while opening so they don't overlap
+        if (openStatus == true) {
+          setTimeout(function(){
+            $('.info-drawer[data-region="' + value + '"]').toggleClass('open');
+          }, 300);
+          $this.addClass('active');
+        } else {
+          $('.info-drawer[data-region="' + value + '"]').toggleClass('open');
+          $this.addClass('active');
+        }
+
       } else {
         $('.continent-list-item').removeClass('active');
         $('.info-drawer').removeClass('open');
