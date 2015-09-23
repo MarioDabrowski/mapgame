@@ -20,7 +20,14 @@ countCorrectAsia = 0,
 countCorrectOceania = 0,
 countCorrectAfrica = 0;
 
+function updateWithAnswer (count, region) {
+  count += 1;
+  $('.continent-list-item[data-region="' + region + '"] .continent-count-right').text(count);
+  $('.info-drawer[data-region="' + region + '"] .country-list').append('<li class="country-list-item">' + inputValue + '</li>');
+}
+
 $(document).ready(function(){
+
 
   // Retreive the country info from the JSON file
   $.ajax({
@@ -34,7 +41,7 @@ $(document).ready(function(){
         if(jQuery.inArray(currentItemCode, independent) !== -1) {
           countryArray.push(currentItem);
 
-          if (currentItem.subregion == 'Northern America' || currentItem.subregion == 'Central America' || currentItem.subregion == 'Caribbean') {
+          if (currentItem.subregion == 'Northern America', currentItem.subregion == 'Central America', currentItem.subregion == 'Caribbean') {
             countNorthAmerica += 1;
           } else if (currentItem.subregion == 'South America') {
             countSouthAmerica += 1;
@@ -65,16 +72,7 @@ $(document).ready(function(){
 
   // When you typed something into the input and hit enter
   $('.input').keypress(function (e) {
-    var currentListHeight;
-
     if (e.which == 13) {
-
-      // If the game hasn't started yet, hide the instructions and begin
-      if($('.start-overlay').is(':visible')) {
-        $('.start-overlay').hide();
-        countDown();
-        timerStatus = true;
-      }
 
       // Check if the country exists in the list
       var $this = $(this),
@@ -96,6 +94,8 @@ $(document).ready(function(){
 
             // Add the 2 value country code to the array
             correctAnswers.push('\'' + countryArray[i].alpha2Code + '\'');
+
+
 
             // Update the correct continent count
             if (currentItem.subregion == 'Northern America' || currentItem.subregion == 'Central America' || currentItem.subregion == 'Caribbean') {
@@ -127,16 +127,18 @@ $(document).ready(function(){
             // Trigger a click to allow Google Maps to update (find a better solution for this later)
             $('#invisibleButton').click();
 
-            answerCount = answerCount+1;
+            answerCount += 1;
             $('.count-correct').text(answerCount);
+
+            // If the game hasn't started yet, hide the instructions and begin
+            if($('.start-overlay').is(':visible') && answerCount != 0) {
+              $('.start-overlay').hide();
+              countDown();
+              timerStatus = true;
+            }
           }
         }
       }
-
-      //
-
-      currentListHeight = $('.country-list').height()
-      console.log(currentListHeight);
     }
   });
 

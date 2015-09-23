@@ -109,6 +109,25 @@ html, body {
   }
 }
 
+.info-drawer-message{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #9c9e9d;
+  width: 100%;
+  line-height: 18px;
+  padding: 0 30px;
+  text-align: center;
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  font-size: 14px;
+
+  .open &{
+    display: none;
+  }
+}
+
 
 
 // Countdown Timer
