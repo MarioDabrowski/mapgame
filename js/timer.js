@@ -1,3 +1,5 @@
+var timerStatus = false;
+
 // Countdown Timer - http://stackoverflow.com/a/8031757
 function countDown() {
   var counter = setInterval(function() {
@@ -34,10 +36,9 @@ function countDown() {
 
 $(document).ready(function(){
 
-  var timerStatus = false;
-
   // Pause Button
   $('.btn-pause').on('click', function() {
+    console.log(timerStatus);
     if(!$('.start-overlay').is(':visible')){
       if(timerStatus == true) {
         timerStatus = false;
