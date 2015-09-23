@@ -112,7 +112,7 @@ html, body {
   position: relative;
   height: 100%;
   width: 100%;
-  
+
   .nano-content{
     padding: 22px 30px;
   }
@@ -135,21 +135,6 @@ html, body {
   &:before{
     bottom: 0;
   }
-}
-
-.info-drawer-message{
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: #9c9e9d;
-  width: 100%;
-  line-height: 18px;
-  padding: 0 30px;
-  text-align: center;
-  font-weight: 300;
-  letter-spacing: 0.04em;
-  font-size: 14px;
 }
 
 
@@ -287,19 +272,36 @@ input{
 // Country list inside of data drawer
 
 .country-list{
-
+  counter-reset: item;
+  list-style-type: none;
 }
 
 .country-list-item{
   color: #9c9e9d;
-  padding: 6px 0 8px;
+  padding: 6px 0 8px 20px;
   border-top: 1px solid #2e3333;
   text-transform: capitalize;
-  font-size: 14px;
+  font-size: 12px;
+  position: relative;
+  min-height: 31px;
 
   &:first-child{
     margin-top: 0;
     padding-top: 0;
     border: 0;
   }
+
+  &:before {
+    content: counter(item) " ";
+    counter-increment: item;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+  }
+}
+
+.country-list-item-text{
+  font-size: 14px;
+  line-height: 16px;
 }
