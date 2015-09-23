@@ -28,6 +28,8 @@ function updateWithAnswer (count, region) {
 
 $(document).ready(function(){
 
+  // Initialize the nano scroller
+  $(".nano").nanoScroller();
 
   // Retreive the country info from the JSON file
   $.ajax({
@@ -143,6 +145,10 @@ $(document).ready(function(){
               countDown();
               timerStatus = true;
             }
+
+
+            // Refresh the nano scrollers
+            $(".nano").nanoScroller();
           }
         }
       }
@@ -168,7 +174,7 @@ $(document).ready(function(){
         if (openStatus == true) {
           setTimeout(function(){
             $('.info-drawer[data-region="' + value + '"]').toggleClass('open');
-          }, 300);
+          }, 400);
           $this.addClass('active');
         } else {
           $('.info-drawer[data-region="' + value + '"]').toggleClass('open');
@@ -181,6 +187,13 @@ $(document).ready(function(){
       }
 
     });
+  });
+
+
+  // On window resize
+  $(window).smartresize(function(){
+    // Refresh the nano scrollers
+    $(".nano").nanoScroller();
   });
 
 });

@@ -123,17 +123,35 @@ html, body {
 .info-drawer {
   position: absolute;
   top: 0;
-  right: 0;
+  right: 60px;
   width: 240px;
   background: #232727;
   height: 100%;
-  padding: 22px 30px;
   z-index: 10;
-  transition: right 0.5s; }
+  transition: right 0.4s; }
   .info-drawer.open {
     right: 300px; }
   .info-drawer.scroll {
     overflow-y: scroll; }
+
+.info-drawer-content {
+  position: relative;
+  height: 100%;
+  width: 100%; }
+  .info-drawer-content .nano-content {
+    padding: 22px 30px; }
+  .info-drawer-content:after, .info-drawer-content:before {
+    content: '';
+    width: 230px;
+    height: 22px;
+    position: absolute;
+    left: 0;
+    background: #232727;
+    z-index: 20; }
+  .info-drawer-content:after {
+    top: 0; }
+  .info-drawer-content:before {
+    bottom: 0; }
 
 .info-drawer-message {
   position: absolute;
@@ -243,5 +261,48 @@ input {
     margin-top: 0;
     padding-top: 0;
     border: 0; }
+
+/** initial setup **/
+.nano > .nano-content {
+  position: absolute;
+  overflow: scroll;
+  overflow-x: hidden;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0; }
+
+.nano > .nano-content:focus {
+  outline: none; }
+
+.nano > .nano-content::-webkit-scrollbar {
+  display: none; }
+
+.has-scrollbar > .nano-content::-webkit-scrollbar {
+  display: block; }
+
+.nano > .nano-pane {
+  background: rgba(0, 0, 0, 0.25);
+  position: absolute;
+  width: 10px;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  visibility: hidden\9;
+  /* Target only IE7 and IE8 with this hack */
+  opacity: .01;
+  transition: .2s; }
+
+.nano > .nano-pane > .nano-slider {
+  background: #444;
+  background: rgba(0, 0, 0, 0.5);
+  position: relative;
+  margin: 0 1px;
+  cursor: hand; }
+
+.nano:hover > .nano-pane, .nano-pane.active, .nano-pane.flashed {
+  visibility: visible\9;
+  /* Target only IE7 and IE8 with this hack */
+  opacity: 0.99; }
 
 /*# sourceMappingURL=screen.css.map */
