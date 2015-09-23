@@ -43,7 +43,7 @@ $(document).ready(function(){
         if(jQuery.inArray(currentItemCode, independent) !== -1) {
           countryArray.push(currentItem);
 
-          if (currentItem.subregion == 'Northern America', currentItem.subregion == 'Central America', currentItem.subregion == 'Caribbean') {
+          if (currentItem.subregion == 'Northern America' || currentItem.subregion == 'Central America' || currentItem.subregion == 'Caribbean') {
             countNorthAmerica += 1;
           } else if (currentItem.subregion == 'South America') {
             countSouthAmerica += 1;
