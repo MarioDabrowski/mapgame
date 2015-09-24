@@ -28,6 +28,16 @@ function updateWithAnswer (count, region) {
   $('.info-drawer[data-region="' + region + '"] .country-list').append('<li class="country-list-item">' + inputValue + '</li>');
 }
 
+function answerIndicator (status) {
+  $('.answer-indicator').show().addClass(status);
+
+  setTimeout(function () {
+    $('.answer-indicator').removeClass(status);
+  }, 300, function () {
+    $('.answer-indicator').hide();
+  });
+}
+
 $(document).ready(function(){
 
   // Retreive the country info from the JSON file
@@ -100,15 +110,25 @@ $(document).ready(function(){
 
       // Check if the country exists in the list
       var $this = $(this),
-      inputValue = $this.val();
+      inputValue = $this.val(),
+      answerStatus = false;
 
       // Loop through the API to see if the inputed answer is in there
       for (var i = 0; i < countryArray.length; i++){
+        var currentCountry;
+
+        // Figure out which name it is using, primary or the alt
+        if (countryArray[i].name.toLowerCase() == inputValue.toLowerCase()) {
+          currentCountry = countryArray[i].name;
+        } else if (jQuery.inArray(inputValue.toLowerCase(), $.map(countryArray[i].altSpellings, function(value,index){currentCountry = value; return value.toLowerCase()})) != -1) {
+
+        }
 
         if(countryArray[i].name.toLowerCase() == inputValue.toLowerCase() || jQuery.inArray(inputValue.toLowerCase(), $.map(countryArray[i].altSpellings, function(n,i){return n.toLowerCase()})) != -1 && inputValue.length >= 3){
 
           var currentItem = countryArray[i],
           countryCode = currentItem.alpha2Code;
+
 
           // Clear out the input
           $this.val('');
@@ -125,27 +145,29 @@ $(document).ready(function(){
             if (currentItem.subregion == 'Northern America' || currentItem.subregion == 'Central America' || currentItem.subregion == 'Caribbean') {
               countCorrectNorthAmerica += 1;
               $('.continent-list-item[data-region="north-america"] .continent-count-right').text(countCorrectNorthAmerica);
-              $('.info-drawer[data-region="north-america"] .country-list-item:eq(' + listNorthAmerica.indexOf(currentItem) + ')').append('<span class="country-list-item-text">' + inputValue + '</span>');
+              $('.info-drawer[data-region="north-america"] .country-list-item:eq(' + listNorthAmerica.indexOf(currentItem) + ')').append('<span class="country-list-item-text">' + currentCountry + '</span>');
             } else if (currentItem.subregion == 'South America') {
               countCorrectSouthAmerica += 1;
               $('.continent-list-item[data-region="south-america"] .continent-count-right').text(countCorrectSouthAmerica);
-              $('.info-drawer[data-region="south-america"] .country-list-item:eq(' + listSouthAmerica.indexOf(currentItem) + ')').append('<span class="country-list-item-text">' + inputValue + '</span>');
+              $('.info-drawer[data-region="south-america"] .country-list-item:eq(' + listSouthAmerica.indexOf(currentItem) + ')').append('<span class="country-list-item-text">' + currentCountry + '</span>');
             } else if (currentItem.region == 'Europe') {
               countCorrectEurope += 1;
               $('.continent-list-item[data-region="europe"] .continent-count-right').text(countCorrectEurope);
-              $('.info-drawer[data-region="europe"] .country-list-item:eq(' + listEurope.indexOf(currentItem) + ')').append('<span class="country-list-item-text">' + inputValue + '</span>');
+              $('.info-drawer[data-region="europe"] .country-list-item:eq(' + listEurope.indexOf(currentItem) + ')').append('<span class="country-list-item-text">' + currentCountry + '</span>');
             } else if (currentItem.region == 'Asia') {
               countCorrectAsia += 1;
               $('.continent-list-item[data-region="asia"] .continent-count-right').text(countCorrectAsia);
-              $('.info-drawer[data-region="asia"] .country-list-item:eq(' + listAsia.indexOf(currentItem) + ')').append('<span class="country-list-item-text">' + inputValue + '</span>');
+              $('.info-drawer[data-region="asia"] .country-list-item:eq(' + listAsia.indexOf(currentItem) + ')').append('<span class="country-list-item-text">' + currentCountry + '</span>');
             } else if (currentItem.region == 'Oceania') {
               countCorrectOceania += 1;
               $('.continent-list-item[data-region="oceania"] .continent-count-right').text(countCorrectOceania);
-              $('.info-drawer[data-region="oceania"] .country-list-item:eq(' + listOceania.indexOf(currentItem) + ')').append('<span class="country-list-item-text">' + inputValue + '</span>');
+              $('.info-drawer[data-region="oceania"] .country-list-item:eq(' + listOceania.indexOf(currentItem) + ')').append('<span class="country-list-item-text">' + currentCountry + '</span>');
             } else if (currentItem.region == 'Africa') {
               countCorrectAfrica += 1;
               $('.continent-list-item[data-region="africa"] .continent-count-right').text(countCorrectAfrica);
-              $('.info-drawer[data-region="africa"] .country-list-item:eq(' + listAfrica.indexOf(currentItem) + ')').append('<span class="country-list-item-text">' + inputValue + '</span>');
+              $('.info-drawer[data-region="africa"] .country-list-item:eq(' + listAfrica.indexOf(currentItem) + ')').append('<span class="country-list-item-text">' + currentCountry + '</span>');
+            } else {
+              console.log('WTF');
             }
 
             // Trigger a click to allow Google Maps to update (find a better solution for this later)
@@ -160,7 +182,17 @@ $(document).ready(function(){
               $('.start-overlay').hide();
               countDown();
               timerStatus = true;
+            } else {
+              // Answer Indicator
+              answerIndicator('correct');
+              console.log('correct');
             }
+
+            
+          } else {
+            // Country doesn't exist
+            answerIndicator('incorrect');
+            console.log('incorrect 1');
           }
         }
       }
