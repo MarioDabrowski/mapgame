@@ -32,6 +32,11 @@
 - Remove toggle for country, state, and city labels
 - How to show long list of countries or capitals by continent in drawer
 - Markers for small countries and island countries
+- Alphabetical ordering of countries
+  - East Timor currently listed under 'L' for Timor-Leste
+  - Republic/Democratic Republic of Congo currently listed under 'C' for Congo, Republic of/Democratic Republic of
+- Remove capitalization of 'and' in country names (e.g., Antigua And Barbuda)
+- Change 'Uae' to either 'UAE' or 'United Arab Emirates'
 
 #### Add-ons
 - About page
@@ -47,7 +52,7 @@
 - 'St.' or 'St' for 'Saint' in relevant country names
 - Non-accented spellings of relevant countries or capitals
 - Omittance of apostrophes, commas, or periods in relevant countries or capitals
-- Omittance of country name prefixes (e.g., "Republic of")
+- Omittance of country name prefixes (e.g., 'Republic of')
 - Space instead of hyphen in relevant countries or capitals
 - Myanmar/Burma: Nay Pyi Taw or Naypyidaw
 - Mongolia: Ulaanbaatar or Ulan Bator
