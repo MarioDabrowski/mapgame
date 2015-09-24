@@ -139,7 +139,7 @@ html, body {
   height: 100%;
   width: 100%; }
   .info-drawer-content .nano-content {
-    padding: 22px 30px; }
+    padding: 16px 30px 14px; }
   .info-drawer-content:after, .info-drawer-content:before {
     content: '';
     width: 230px;
@@ -251,7 +251,6 @@ input {
   min-height: 31px; }
   .country-list-item:first-child {
     margin-top: 0;
-    padding-top: 0;
     border: 0; }
   .country-list-item:before {
     content: counter(item) " ";
