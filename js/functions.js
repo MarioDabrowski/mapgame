@@ -172,28 +172,31 @@ $(document).ready(function(){
 
   $.each(continents, function(key, value) {
     $('.continent-list-item[data-region="' + value + '"]').on('click', function () {
-      var $this = $(this);
+      var $this = $(this),
+      $currentDrawer = $('.info-drawer[data-region="' + value + '"]'),
+      $infoDrawer = $('.info-drawer'),
+      $continentListItem = $('.continent-list-item');
 
-      if (!$this.hasClass('active')) {
-        var openStatus = $('.continent-list-item').hasClass('active');
+      if (!$('.continent-list-item').hasClass('active')) {
+        $currentDrawer.toggleClass('open');
+        $this.addClass('active');
 
-        $('.continent-list-item').removeClass('active');
-        $('.info-drawer').removeClass('open');
-
-        // Check to see if any of the drawers are open, if they are delay the next drawer while opening so they don't overlap
-        if (openStatus == true) {
-          setTimeout(function(){
-            $('.info-drawer[data-region="' + value + '"]').toggleClass('open');
-          }, 400);
-          $this.addClass('active');
-        } else {
-          $('.info-drawer[data-region="' + value + '"]').toggleClass('open');
-          $this.addClass('active');
-        }
+        setTimeout(function () {
+          $infoDrawer.addClass('static');
+        }, 500);
 
       } else {
-        $('.continent-list-item').removeClass('active');
-        $('.info-drawer').removeClass('open');
+        if (!$this.hasClass('active')) {
+          $continentListItem.removeClass('active');
+          $infoDrawer.removeClass('open');
+
+          $currentDrawer.toggleClass('open');
+          $this.addClass('active');
+        } else {
+          $infoDrawer.removeClass('static');
+          $continentListItem.removeClass('active');
+          $infoDrawer.removeClass('open');
+        }
       }
 
     });

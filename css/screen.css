@@ -131,15 +131,33 @@ html, body {
   transition: right 0.4s; }
   .info-drawer.open {
     right: 300px; }
+  .info-drawer.static {
+    transition: no; }
   .info-drawer.scroll {
     overflow-y: scroll; }
+
+.info-drawer-title {
+  color: #eca554;
+  font-weight: 400;
+  font-size: 16px;
+  letter-spacing: 0.04em;
+  padding-top: 4px;
+  margin-bottom: 10px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 30;
+  width: 240px;
+  border-bottom: 1px solid #2e3333;
+  background: #232727;
+  padding: 20px 30px; }
 
 .info-drawer-content {
   position: relative;
   height: 100%;
   width: 100%; }
   .info-drawer-content .nano-content {
-    padding: 16px 30px 14px; }
+    padding: 70px 30px 14px; }
   .info-drawer-content:after, .info-drawer-content:before {
     content: '';
     width: 230px;
@@ -149,7 +167,7 @@ html, body {
     background: #232727;
     z-index: 20; }
   .info-drawer-content:after {
-    top: 0; }
+    top: 56px; }
   .info-drawer-content:before {
     bottom: 0; }
 

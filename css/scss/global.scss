@@ -103,9 +103,30 @@ html, body {
     right: 300px;
   }
 
+  &.static{
+    transition: no;
+  }
+
   &.scroll{
     overflow-y: scroll;
   }
+}
+
+.info-drawer-title{
+  color: #eca554;
+  font-weight: 400;
+  font-size: 16px;
+  letter-spacing: 0.04em;
+  padding-top: 4px;
+  margin-bottom: 10px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 30;
+  width: 240px;
+  border-bottom: 1px solid #2e3333;
+  background: #232727;
+  padding: 20px 30px;
 }
 
 .info-drawer-content{
@@ -114,7 +135,7 @@ html, body {
   width: 100%;
 
   .nano-content{
-    padding: 16px 30px 14px;
+    padding: 70px 30px 14px;
   }
 
   &:after,
@@ -129,7 +150,7 @@ html, body {
   }
 
   &:after{
-    top: 0;
+    top: 56px;
   }
 
   &:before{
