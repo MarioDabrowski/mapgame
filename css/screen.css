@@ -61,23 +61,6 @@ html, body {
   height: 100%;
   background-color: #b3d1fd; }
 
-.answer-indicator {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 5;
-  pointer-events: none;
-  display: block;
-  transition: background 0.25s;
-  background: transparent;
-  opacity: 0.5; }
-  .answer-indicator.correct {
-    background: #179714; }
-  .answer-indicator.incorrect {
-    background: #ac1818; }
-
 .stage {
   position: absolute;
   top: 0;
@@ -123,7 +106,14 @@ html, body {
 .map-overlay-container {
   background: rgba(0, 0, 0, 0.9);
   height: 100%;
-  width: 100%; }
+  width: 100%;
+  position: relative; }
+
+.map-overlay-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); }
 
 .instructions-dialogue {
   position: relative;
@@ -190,7 +180,7 @@ html, body {
 
 .timer-wrapper {
   padding: 26px 30px 30px;
-  border-bottom: 1px dotted #1f2323;
+  border-bottom: 1px solid #242828;
   font-size: 0;
   text-align: center; }
 
@@ -223,8 +213,8 @@ html, body {
 .input-wrapper {
   padding: 26px 30px 30px;
   background: #292e2e;
-  border-top: 1px dotted #1f2323;
-  border-bottom: 1px dotted #1f2323; }
+  border-top: 1px solid #242828;
+  border-bottom: 1px solid #242828; }
 
 input {
   background: #fff;
@@ -238,7 +228,12 @@ input {
   letter-spacing: 0.02em;
   font-weight: 400;
   font-style: italic;
-  text-align: center; }
+  text-align: center;
+  transition: background 0.1s; }
+  input.correct {
+    background: #ccffbe; }
+  input.incorrect {
+    background: #ffaeae; }
 
 .score-wrapper {
   padding: 30px;
@@ -271,6 +266,41 @@ input {
 
 .continent-count-container {
   float: right; }
+
+.game-title {
+  margin-bottom: 60px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 72px;
+  border-bottom: 1px solid #e82424;
+  display: inline-block;
+  color: #ddd0a6; }
+
+.game-type-wrapper {
+  position: relative; }
+
+.game-type {
+  border-radius: 8px;
+  display: inline-block;
+  font-size: 0;
+  overflow: hidden;
+  background: #333; }
+
+.game-type-item {
+  display: inline-block;
+  padding: 18px 26px 20px 26px;
+  cursor: pointer; }
+  .game-type-item:first-child {
+    border: 0; }
+  .game-type-item.active {
+    background: #eca54a; }
+
+.game-type-title {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 300;
+  font-size: 26px;
+  letter-spacing: 0.03em;
+  display: inline-block; }
 
 .country-list {
   counter-reset: item;

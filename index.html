@@ -5,6 +5,7 @@
   <title>Map Game</title>
   <link rel="stylesheet" type="text/css" href="css/screen.css">
   <link href='https://fonts.googleapis.com/css?family=Lato:400,900italic,900,700italic,700,400italic,300' rel='stylesheet' type='text/css'>
+  <!-- <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700|Source+Sans+Pro:400,600,700,300' rel='stylesheet' type='text/css'> -->
 </head>
 <body>
 
@@ -12,7 +13,22 @@
   <!-- Start overlay when the game is launched -->
   <div class="map-overlay-wrapper start-overlay">
     <div class="map-overlay-container">
-      <div class="instructions-dialogue">When you type in your first country and hit enter the game will begin.</div>
+      <div class="map-overlay-content">
+        <div class="game-title">
+          Map Game
+          <img src="/img/logo.png" alt="">
+        </div>
+        <div class="game-type-wrapper">
+          <ul class="game-type">
+            <li class="game-type-item active">
+              <div class="game-type-title">Challenge</div>
+            </li>
+            <li class="game-type-item">
+              <div class="game-type-title">Endurance</div>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -82,7 +98,6 @@
 
 
   <!-- Game stage -->
-  <div class="answer-indicator"></div>
   <div id="map"></div>
   <div class="stage">
 

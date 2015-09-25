@@ -29,13 +29,11 @@ function updateWithAnswer (count, region) {
 }
 
 function answerIndicator (status) {
-  $('.answer-indicator').show().addClass(status);
+  $('.input').addClass(status);
 
   setTimeout(function () {
-    $('.answer-indicator').removeClass(status);
-  }, 300, function () {
-    $('.answer-indicator').hide();
-  });
+    $('.input').removeClass(status);
+  }, 200);
 }
 
 $(document).ready(function(){
@@ -188,7 +186,7 @@ $(document).ready(function(){
               console.log('correct');
             }
 
-            
+
           } else {
             // Country doesn't exist
             answerIndicator('incorrect');
