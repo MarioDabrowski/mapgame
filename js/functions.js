@@ -232,6 +232,38 @@ $(document).ready(function(){
     });
   });
 
+  // Challenge toggle
+  $('.game-type-item').on('click', function () {
+    var $this = $(this),
+        gameType = $this.data('type'),
+        parentContainer = $this.parent();
+
+    if (gameType == 'challenge' && !parentContainer.hasClass('pos-1')) {
+      parentContainer.removeClass('pos-2').addClass('pos-1');
+
+      $('.game-type-description[data-type="endurance"]').addClass('hidden');
+
+      setTimeout (function () {
+        $('.game-type-description[data-type="endurance"]').hide();
+        $('.game-type-description[data-type="challenge"]').css('display', 'inline-block');
+      }, 200);
+      setTimeout (function () {
+        $('.game-type-description[data-type="challenge"]').removeClass('hidden');
+      }, 250);
+
+    } else if (gameType == 'endurance' && !parentContainer.hasClass('pos-2')) {
+      parentContainer.removeClass('pos-1').addClass('pos-2');
+      $('.game-type-description[data-type="challenge"]').addClass('hidden');
+
+      setTimeout (function () {
+        $('.game-type-description[data-type="challenge"]').hide();
+        $('.game-type-description[data-type="endurance"]').css('display', 'inline-block');
+      }, 200);
+      setTimeout (function () {
+        $('.game-type-description[data-type="endurance"]').removeClass('hidden');
+      }, 250);
+    }
+  });
 
   // On window resize
   $(window).smartresize(function(){

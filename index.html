@@ -13,21 +13,38 @@
   <!-- Start overlay when the game is launched -->
   <div class="map-overlay-wrapper start-overlay">
     <div class="map-overlay-container">
+      <div class="instruction-indicator" data-type="input">
+        <div class="instruction-details">When you are ready, type your first<br />answer here to begin the game</div>
+        <div class="instruction-arrow icon-arrow-right"></div>
+      </div>
+      <div class="instruction-indicator" data-type="continents">
+        <div class="instruction-details">Use the continent slideouts to keep<br />track of what countries you're missing</div>
+        <div class="instruction-arrow icon-arrow-right"></div>
+      </div>
+      <div class="instruction-indicator" data-type="forfeit">
+        <div class="instruction-details">When you can't think of anymore answers<br />hit this to reveal the ones you've missed</div>
+        <div class="instruction-arrow icon-arrow-right"></div>
+      </div>
+
+      <ul class="nav-primary">
+        <li class="nav-primary-item active">Game</li>
+        <li class="nav-primary-item">Country List</li>
+        <li class="nav-primary-item">About</li>
+        <li class="nav-primary-item">Contact</li>
+      </ul>
+
       <div class="map-overlay-content">
         <div class="game-title">
           Map Game
-          <img src="/img/logo.png" alt="">
         </div>
         <div class="game-type-wrapper">
-          <ul class="game-type">
-            <li class="game-type-item active">
-              <div class="game-type-title">Challenge</div>
-            </li>
-            <li class="game-type-item">
-              <div class="game-type-title">Endurance</div>
-            </li>
+          <ul class="game-type pos-1">
+            <li class="game-type-item" data-type="challenge">Challenge</li>
+            <li class="game-type-item" data-type="endurance">Endurance</li>
           </ul>
         </div>
+        <div class="game-type-description" data-type="challenge">In challenge mode you will be put against the clock as random countries are selected and you're tasked to provide their name.</div>
+        <div class="game-type-description hidden" data-type="endurance">In endurance mode you are given 15 minutes to name as many independent countries as you can.</div>
       </div>
     </div>
   </div>
