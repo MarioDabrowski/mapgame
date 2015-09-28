@@ -41,7 +41,7 @@ a{
 }
 
 .instructions{
-  color: #9ea09f;
+  color: #eca54a;
   font-weight: 400;
   margin-bottom: 20px;
   text-align: center;
@@ -226,7 +226,7 @@ a{
   border-bottom: 1px solid #242828;
 }
 
-input{
+.answer-input{
   background: #fff;
   border: 0;
   outline: 0;
@@ -457,48 +457,32 @@ input{
 }
 
 
+// Checkbox container
 
-// Instruction Indicators
-
-.instruction-indicator{
-  position: absolute;
-  right: 30px;
+.checkbox-container{
+  position: relative;
+  padding-left: 24px;
+  margin-top: 10px;
+  display: block;
 }
 
-.instruction-indicator[data-type="timer"]{
-  top: 30px;
+.checkbox-input,
+.checkbox-label{
+  cursor: pointer;
 }
 
-.instruction-indicator[data-type="input"]{
-  top: 254px;
+.checkbox-input{
+position: absolute;
+top: 50%;
+transform: translateY(-50%);
+left: 0;
+margin-left: 0;
+margin-right: 0;
 }
 
-.instruction-indicator[data-type="continents"]{
-  top: 458px;
-}
-
-.instruction-indicator[data-type="forfeit"]{
-  bottom: 22px;
-
-  .instruction-arrow{
-    position: relative;
-    top: 8px;
-  }
-}
-
-.instruction-arrow,
-.instruction-details{
-  display: inline-block;
-  vertical-align: middle;
-}
-
-.instruction-arrow{
-  margin-left: 10px;
-  color: #eca54a;
-}
-
-.instruction-details{
-  text-align: right;
-  line-height: 20px;
-  color: #595959;
+.checkbox-label{
+  font-size: 14px;
+  color: #9ea09f;
+  position: relative;
+  top: 2px;
 }

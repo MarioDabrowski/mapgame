@@ -13,18 +13,6 @@
   <!-- Start overlay when the game is launched -->
   <div class="map-overlay-wrapper start-overlay">
     <div class="map-overlay-container">
-      <div class="instruction-indicator" data-type="input">
-        <div class="instruction-details">When you are ready, type your first<br />answer here to begin the game</div>
-        <div class="instruction-arrow icon-arrow-right"></div>
-      </div>
-      <div class="instruction-indicator" data-type="continents">
-        <div class="instruction-details">Use the continent slideouts to keep<br />track of what countries you're missing</div>
-        <div class="instruction-arrow icon-arrow-right"></div>
-      </div>
-      <div class="instruction-indicator" data-type="forfeit">
-        <div class="instruction-details">When you can't think of anymore answers<br />hit this to reveal the ones you've missed</div>
-        <div class="instruction-arrow icon-arrow-right"></div>
-      </div>
 
       <ul class="nav-primary">
         <li class="nav-primary-item active">Game</li>
@@ -137,8 +125,12 @@
 
     <!-- Answer Box -->
     <div class="input-wrapper">
-      <div class="instructions">Type your answers below.</div>
-      <input type="text" id="input" class="input">
+      <div class="instructions">Type your answers below</div>
+      <input type="text" id="input" class="answer-input">
+      <div class="checkbox-container">
+        <input type="checkbox" id="panTo" class="checkbox-input">
+        <label for="panTo" class="checkbox-label">Pan map as you answer</label>
+      </div>
     </div>
 
 
@@ -182,7 +174,7 @@
           </span>
         </li>
       </ul>
-      <div class="instructions">Click on a continents above to view the countries you have entered.</div>
+      <div class="instructions">Click on a continents above to view the countries you have entered</div>
     </div>
 
 

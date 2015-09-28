@@ -29,10 +29,10 @@ function updateWithAnswer (count, region) {
 }
 
 function answerIndicator (status) {
-  $('.input').addClass(status);
+  $('.answer-input').addClass(status);
 
   setTimeout(function () {
-    $('.input').removeClass(status);
+    $('.answer-input').removeClass(status);
   }, 200);
 }
 
@@ -103,7 +103,7 @@ $(document).ready(function(){
   });
 
   // When you typed something into the input and hit enter
-  $('.input').keypress(function (e) {
+  $('.answer-input').keypress(function (e) {
     if (e.which == 13) {
 
       // Check if the country exists in the list
@@ -125,7 +125,8 @@ $(document).ready(function(){
         if(countryArray[i].name.toLowerCase() == inputValue.toLowerCase() || jQuery.inArray(inputValue.toLowerCase(), $.map(countryArray[i].altSpellings, function(n,i){return n.toLowerCase()})) != -1 && inputValue.length >= 3){
 
           var currentItem = countryArray[i],
-          countryCode = currentItem.alpha2Code;
+          countryCode = currentItem.alpha2Code,
+          latLng = new google.maps.LatLng( currentItem.latlng[0],  currentItem.latlng[1]);
 
 
           // Clear out the input
@@ -180,17 +181,23 @@ $(document).ready(function(){
               $('.start-overlay').hide();
               countDown();
               timerStatus = true;
+
+              map.panTo(latLng);
+              // map.setZoom( data[2]);
+
             } else {
               // Answer Indicator
               answerIndicator('correct');
-              console.log('correct');
             }
 
+            // Pan to checkbox
+            if ($('#panTo').is(':checked')) {
+              map.panTo(latLng);
+            }
 
           } else {
-            // Country doesn't exist
+            // Country is correct but already entered
             answerIndicator('incorrect');
-            console.log('incorrect 1');
           }
         }
       }
