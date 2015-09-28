@@ -2,7 +2,7 @@
 // Learn to not make these global but be accessible from other files (namespace)
 var correctAnswers = [],
 answerCount = 0,
-gamseStatus = false,
+gameStatus = false,
 independent = ['Afghanistan', 'Albania', 'Algeria', 'Andorra', 'Angola', 'Antigua and Barbuda', 'Argentina', 'Armenia', 'Australia', 'Austria', 'Azerbaijan', 'The Bahamas', 'Bahrain', 'Bangladesh', 'Barbados', 'Belarus', 'Belgium', 'Belize', 'Benin', 'Bhutan', 'Bolivia', 'Bosnia and Herzegovina', 'Botswana', 'Brazil', 'Brunei', 'Bulgaria', 'Burkina Faso', 'Burundi', 'Cambodia', 'Cameroon', 'Canada', 'Cape Verde', 'Central African Republic', 'Chad', 'Chile', 'China', 'Colombia', 'Comoros', 'Republic of the Congo', 'Democratic Republic of the Congo', 'Costa Rica', 'Croatia', 'Cuba', 'Cyprus', 'Czech Republic', 'Denmark', 'Djibouti', 'Dominica', 'Dominican Republic', 'Ecuador', 'Egypt', 'El Salvador', 'Equatorial Guinea', 'Eritrea', 'Estonia', 'Ethiopia', 'Fiji', 'Finland', 'France', 'Gabon', 'The Gambia', 'Georgia', 'Germany', 'Ghana', 'Greece', 'Grenada', 'Guatemala', 'Guinea', 'Guinea-Bissau', 'Guyana', 'Haiti', 'Honduras', 'Hungary', 'Iceland', 'India', 'Indonesia', 'Ivory Coast', 'Iran', 'Iraq', 'Republic of Ireland', 'Israel', 'Italy', 'Jamaica', 'Japan', 'Jordan', 'Kazakhstan', 'Kenya', 'Kiribati', 'Kuwait', 'Kyrgyzstan', 'Laos', 'Latvia', 'Lebanon', 'Lesotho', 'Liberia', 'Libya', 'Liechtenstein', 'Lithuania', 'Luxembourg', 'Republic of Macedonia', 'Madagascar', 'Malawi', 'Malaysia', 'Maldives', 'Mali', 'Malta', 'Marshall Islands', 'Mauritania', 'Mauritius', 'Mexico', 'Federated States of Micronesia', 'Moldova', 'Monaco', 'Mongolia', 'Montenegro', 'Morocco', 'Mozambique', 'Myanmar', 'Namibia', 'Nauru', 'Nepal', 'Netherlands', 'New Zealand', 'Nicaragua', 'Niger', 'Nigeria', 'North Korea', 'Norway', 'Oman', 'Pakistan', 'Palau', 'Panama', 'Papua New Guinea', 'Paraguay', 'Peru', 'Philippines', 'Poland', 'Portugal', 'Qatar', 'Republic of Kosovo', 'Romania', 'Russia', 'Rwanda', 'Saint Kitts and Nevis', 'Saint Lucia', 'Saint Vincent and the Grenadines', 'Samoa', 'San Marino', 'São Tomé and Príncipe', 'Saudi Arabia', 'Senegal', 'Serbia', 'Seychelles', 'Sierra Leone', 'Singapore', 'Slovakia', 'Slovenia', 'Solomon Islands', 'Somalia', 'South Africa', 'South Korea', 'South Sudan', 'Spain', 'Sri Lanka', 'Sudan', 'Suriname', 'Swaziland', 'Sweden', 'Switzerland', 'Syria', 'Taiwan', 'Tajikistan', 'Tanzania', 'Thailand', 'East Timor', 'Togo', 'Tonga', 'Trinidad and Tobago', 'Tunisia', 'Turkey', 'Turkmenistan', 'Tuvalu', 'Uganda', 'Ukraine', 'United Arab Emirates', 'United Kingdom', 'United States', 'Uruguay', 'Uzbekistan', 'Vatican City', 'Vanuatu', 'Venezuela', 'Vietnam', 'Yemen', 'Zambia', 'Zimbabwe'],
 continents = ['north-america', 'south-america', 'europe', 'asia', 'oceania', 'africa'],
 
@@ -34,6 +34,17 @@ function answerIndicator (status) {
   setTimeout(function () {
     $('.answer-input').removeClass(status);
   }, 200);
+}
+
+function disableInput () {
+  var answerInput = $('.answer-input'),
+      answerInputAttr = answerInput.attr('disabled');
+
+  if (typeof answerInputAttr == typeof undefined && answerInputAttr !== true) {
+    $('.answer-input').attr('disabled', true);
+  } else {
+    $('.answer-input').removeAttr('disabled', false);
+  }
 }
 
 $(document).ready(function(){
@@ -101,6 +112,14 @@ $(document).ready(function(){
 
     }
   });
+
+  // Check to see if the focus is in the input, if not set the focus on keypress
+
+    $(document).keypress(function (e) {
+      if (!$('.answer-input').is(':focus')) {
+        $('.answer-input').focus();
+      }
+    });
 
   // When you typed something into the input and hit enter
   $('.answer-input').keypress(function (e) {
@@ -178,6 +197,8 @@ $(document).ready(function(){
 
             // If the game hasn't started yet, hide the instructions and begin
             if($('.start-overlay').is(':visible') && answerCount != 0) {
+              gameStatus = true;
+              pauseBtn = true; // enable pause
               $('.start-overlay').hide();
               countDown();
               timerStatus = true;
@@ -271,6 +292,36 @@ $(document).ready(function(){
       }, 250);
     }
   });
+
+  // When you hit 'give up'
+  // Write a function that check to see whether the game has started instead of repeating this if statement in a few places
+
+    $('.btn-give-up').on('click', function () {
+      if (gameStatus == true) {
+        gameStatus = false;
+
+        // Disabled the input field
+        disableInput();
+
+        // Show the game over screen
+        $('.gameover-overlay').show();
+
+        // Stop the timer
+        if(timerStatus == true) {
+          timerStatus = false;
+        }
+
+        // Hide the pause overlay if it is visible
+        if ($('.pause-overlay').is(':visible')) {
+          $('.pause-overlay').hide();
+        }
+
+        // Disable the pause button
+        $('.btn-pause').on('click', function (e) {
+          e.stopPropagation();
+        });
+      }
+    });
 
   // On window resize
   $(window).smartresize(function(){

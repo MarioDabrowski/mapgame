@@ -38,8 +38,13 @@ $(document).ready(function(){
 
   // Pause Button
   $('.btn-pause').on('click', function() {
-    console.log(timerStatus);
-    if(!$('.start-overlay').is(':visible')){
+    if($('.start-overlay').is(':hidden') && gameStatus == true){
+
+      disableInput();
+
+      // Place the active state in the input at resume
+      $('.answer-input').focus();
+
       if(timerStatus == true) {
         timerStatus = false;
         $(this).text('Resume');

@@ -408,6 +408,9 @@ a {
   position: relative;
   top: 2px; }
 
+.gameover-overlay {
+  display: none; }
+
 /** initial setup **/
 .nano > .nano-content {
   position: absolute;
