@@ -225,40 +225,5 @@ font-size: 12px;
 }
 
 .map {
-  height: 100px;
-  position: relative;
-  background: #2f3540;
-}
 
-.map__image {
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-/* 39424b, 293039 */
-/* 2e2d31, 1c1d1f */
-.land
-{
-  fill: #525966;
-  fill-opacity: 1;
-  stroke: #2f3540;
-  stroke-opacity: 1;
-  stroke-width:0.2;
-}
-
-.land--active {
-  fill: #929eb5;
-}
-
-.land--not-independent {
-  fill: orange;
-}
-
-.test {
-  position: relative;
-  z-index: 1000;
 }
