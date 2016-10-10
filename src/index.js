@@ -1,10 +1,10 @@
 import React from 'react';
 import { render } from 'react-dom';
-import './App.css';
+import './css/App.css';
 import Timer from './components/timer';
 import List from './components/list';
 import AnswerBox from './components/answer_box';
-import Countries from './countries';
+import Countries from './data/countries';
 import Progress from './components/progress';
 import ColumnHeadings from './components/columnHeadings';
 import Map from './components/map';

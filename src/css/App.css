@@ -85,13 +85,13 @@ button {
   text-align: center;
   padding: 10px 0;
   font-weight: bold;
-  background: url('topo_pattern.png') 0 0 no-repeat;
+  background: url('../img/topo_pattern.png') 0 0 no-repeat;
 }
 
 .list__col__heading
 
 .list__col:nth-child(even) .list__col__heading {
-  background: url('topo_pattern.png') bottom right no-repeat;
+  background: url('../img/topo_pattern.png') bottom right no-repeat;
 }
 
 .list__col:last-child .list__col__heading {

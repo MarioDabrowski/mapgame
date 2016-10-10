@@ -4,6 +4,7 @@
   "private": true,
   "devDependencies": {
     "@ryancavanaugh/svg-pan-zoom": "^2.3.12-alpha",
+    "leaflet": "^1.0.1",
     "react-scripts": "0.6.1",
     "svg-pan-zoom": "github:ariutta/svg-pan-zoom"
   },
