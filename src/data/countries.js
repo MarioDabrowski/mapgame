@@ -1688,44 +1688,44 @@ const countries = [
       "en"
     ]
   },
-  {
-    "name": "United States Minor Outlying Islands",
-    "capital": "",
-    "altSpellings": [],
-    "independent": false,
-    "relevance": "0",
-    "region": "North America",
-    "subregion": "Northern America",
-    "translations": {
-      "de": "Kleinere Inselbesitzungen der Vereinigten Staaten",
-      "es": "Islas Ultramarinas Menores de Estados Unidos",
-      "fr": "Îles mineures éloignées des États-Unis",
-      "ja": "合衆国領有小離島",
-      "it": "Isole minori esterne degli Stati Uniti d'America"
-    },
-    "population": 300,
-    "latlng": [],
-    "demonym": "American",
-    "area": null,
-    "gini": null,
-    "timezones": null,
-    "borders": [],
-    "nativeName": "United States Minor Outlying Islands",
-    "callingCodes": [
-      ""
-    ],
-    "topLevelDomain": [
-      ".us"
-    ],
-    "alpha2Code": "UM",
-    "alpha3Code": "UMI",
-    "currencies": [
-      "USD"
-    ],
-    "languages": [
-      "en"
-    ]
-  },
+  // {
+  //   "name": "United States Minor Outlying Islands",
+  //   "capital": "",
+  //   "altSpellings": [],
+  //   "independent": false,
+  //   "relevance": "0",
+  //   "region": "North America",
+  //   "subregion": "Northern America",
+  //   "translations": {
+  //     "de": "Kleinere Inselbesitzungen der Vereinigten Staaten",
+  //     "es": "Islas Ultramarinas Menores de Estados Unidos",
+  //     "fr": "Îles mineures éloignées des États-Unis",
+  //     "ja": "合衆国領有小離島",
+  //     "it": "Isole minori esterne degli Stati Uniti d'America"
+  //   },
+  //   "population": 300,
+  //   "latlng": [],
+  //   "demonym": "American",
+  //   "area": null,
+  //   "gini": null,
+  //   "timezones": null,
+  //   "borders": [],
+  //   "nativeName": "United States Minor Outlying Islands",
+  //   "callingCodes": [
+  //     ""
+  //   ],
+  //   "topLevelDomain": [
+  //     ".us"
+  //   ],
+  //   "alpha2Code": "UM",
+  //   "alpha3Code": "UMI",
+  //   "currencies": [
+  //     "USD"
+  //   ],
+  //   "languages": [
+  //     "en"
+  //   ]
+  // },
   {
     "name": "British Virgin Islands",
     "capital": "Road Town",

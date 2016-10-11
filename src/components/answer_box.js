@@ -1,4 +1,5 @@
 import React from 'react';
+import leaflet from 'leaflet';
 
 class AnswerBox extends React.Component {
   constructor() {
@@ -70,6 +71,12 @@ class AnswerBox extends React.Component {
         }
 
         this.props.state.continents[continentIndex].correctCountries++;
+
+        // Kill the map marker
+        this.props.state.map.removeLayer(this.props.state.countries[countryIndex].marker);
+
+        //
+        this.props.state.map.panTo(new leaflet.LatLng(this.props.state.countries[countryIndex].latlng[0], this.props.state.countries[countryIndex].latlng[1]));
 
         // Reset the input to be blank
         input.value = '';
