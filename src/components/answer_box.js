@@ -78,6 +78,14 @@ class AnswerBox extends React.Component {
         //
         this.props.state.map.panTo(new leaflet.LatLng(this.props.state.countries[countryIndex].latlng[0], this.props.state.countries[countryIndex].latlng[1]));
 
+        //
+        var countryCode = this.props.state.countries[countryIndex].alpha3Code;
+        var shape = document.querySelectorAll('path.' + countryCode);
+
+        for (let i = 0; i < shape.length; i++) {
+          shape[i].setAttribute('fill-opacity', 0.3);
+        }
+
         // Reset the input to be blank
         input.value = '';
 
