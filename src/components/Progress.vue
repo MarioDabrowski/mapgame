@@ -1,25 +1,35 @@
 <template>
-  <div class="progress">
-    <div class="progress__countries"><span>Countries - </span>{{this.$store.state.correctCountries}}<span class="progress-divider">/</span>{{this.$store.state.independentCountries}}</div>
-    <div class="progress__capitals"><span>Capitals - </span>{{this.$store.state.correctCapitals}}<span class="progress-divider">/</span>{{this.$store.state.independentCountries}}</div>
+  <div class="header-right">
+    <div class="progress">
+      <div class="progress__countries" v-if="$store.state.gameType === 'countries' || $store.state.gameType === 'countriesCapitals'"><span>Countries - </span>{{this.$store.state.correctCountries}}<span class="progress-divider">/</span>{{this.$store.state.independentCountries}}</div>
+      <div class="progress__capitals" v-if="$store.state.gameType === 'capitals' || $store.state.gameType === 'countriesCapitals'"><span>Capitals - </span>{{this.$store.state.correctCapitals}}<span class="progress-divider">/</span>{{this.$store.state.independentCountries}}</div>
+    </div>
+    <GiveUp />
   </div>
 </template>
 
 <script>
+import GiveUp from './../components/GiveUp';
+
 export default {
   name: 'Progress',
+  components: { GiveUp }
 } // export default
 
 </script>
 <style>
-  .progress {
-    width: 33.333333333%;
+  .header-right {
+    width: calc(33.333333333% - 1px);
     text-align: center;
     padding: 20px 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+  }
+
+  .progress {
+    margin-bottom: 24px;
   }
 
   .progress__countries {

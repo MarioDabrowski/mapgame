@@ -1,17 +1,16 @@
 <template>
-  <div class="timer"></div>
+  <div class="header-left"></div>
 </template>
 
 <script>
 export default {
-  name: 'Timer',
+  name: 'HeaderLeft'
 } // export default
 
 </script>
 <style>
-  .timer {
+  .header-left {
     width: 33.333333333%;
-    padding: 20px 0;
-    text-align: center;
+    padding: 20px;
   }
 </style>

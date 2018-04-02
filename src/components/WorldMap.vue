@@ -1,7 +1,5 @@
 <template>
-  <div ref="map" class="map">
-    <button class="give-up" @click="endGame">Give Up</button>
-  </div>
+  <div ref="map" class="map"></div>
 </template>
 
 <script>
@@ -12,38 +10,6 @@ import './../assets/leaflet.zoomcss.js';
 
 export default {
   name: 'WorldMap',
-  methods: {
-    endGame: function () {
-      if (!this.$store.state.gameOver) {
-        for (var i = 0; i < this.$store.state.countries.length; i++) {
-          if(this.$store.state.countries[i].independent) {
-            if (!this.$store.state.countries[i].answeredCountry || !this.$store.state.countries[i].answeredCapital) {
-              var that = this;
-
-              function getName() {
-                if (!that.$store.state.countries[i].answeredCountry && !that.$store.state.countries[i].answeredCapital) {
-                  return that.$store.state.countries[i].name + ', ' + that.$store.state.countries[i].capital;
-                } else if (!that.$store.state.countries[i].answeredCountry && that.$store.state.countries[i].answeredCapital) {
-                  return that.$store.state.countries[i].name;
-                } else {
-                  return that.$store.state.countries[i].capital;
-                }
-              }
-
-              var myIcon = leaflet.divIcon({ 
-                iconSize: new L.Point(62, 4), 
-                html: getName(),
-                className: 'label'
-              });
-              leaflet.marker([this.$store.state.countries[i].latlng[0], this.$store.state.countries[i].latlng[1]], {icon: myIcon}).addTo(this.$store.state.leaflet)
-
-              this.$store.commit('gameOver');
-            }
-          }
-        }
-      }
-    }
-  },
   mounted () {
 
     // --------------
@@ -85,53 +51,34 @@ export default {
       }
     }).addTo(worldMap);
 
-    // ----------------
-    // Add country pins
-    // ----------------
+    // ------------------
+    // Game type selected
+    // ------------------
 
-    var redIcon = leaflet.icon({
-      iconUrl: pin,
-      iconSize:     [9, 16], // size of the icon
-      iconAnchor:   [4, 8], // point of the icon which will correspond to marker's location
-      className: 'marker-countries'
-    });
+    this.$store.watch( state => state.gameType, (newValue, oldValue) => {
+      
+      // Add country pins
+      var redIcon = leaflet.icon({
+        iconUrl: pin,
+        iconSize:     [9, 16], // size of the icon
+        className: 'marker-countries'
+      });
 
-    var blueIcon = leaflet.icon({
-      iconUrl: pin,
-      iconSize:     [9, 16], // size of the icon
-      iconAnchor:   [4, 8], // point of the icon which will correspond to marker's location
-      className: 'marker-countries'
-    });
-
-    for (var i = 0; i < this.$store.state.countries.length; i++) {
-      if(this.$store.state.countries[i].independent) {
-        this.$store.state.countries[i].marker = leaflet.marker(
-          [this.$store.state.countries[i].latlng[0], this.$store.state.countries[i].latlng[1]],
-          {icon: redIcon}
-        ).addTo(worldMap);
+      for (var i = 0; i < this.$store.state.countries.length; i++) {
+        if(this.$store.state.countries[i].independent) {
+          this.$store.state.countries[i].marker = leaflet.marker(
+            [this.$store.state.countries[i].latlng[0], this.$store.state.countries[i].latlng[1]],
+            {icon: redIcon}
+          ).addTo(worldMap);
+        }
       }
-    }
+    })
 
   } // mounted
 } // export default
 
 </script>
 <style>
-  .give-up {
-    position: absolute;
-    bottom: 20px;
-    left: 20px;
-    background: white;
-    z-index: 500;
-    padding: 10px 18px;
-    font-size: 14px;
-    font-weight: bold;
-    border: 0;
-    border-radius: 4px;
-    cursor: pointer;
-    border: 1px solid #959595;
-  }
-
   .label {
     background: white;
     white-space: nowrap;
@@ -166,6 +113,7 @@ export default {
 
   .map {
     flex-grow: 1;
+    z-index: 10;
   }
 
   .wave-test {

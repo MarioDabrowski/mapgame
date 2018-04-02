@@ -9,6 +9,11 @@ Vue.use(Vuex)
 var store = new Vuex.Store({
   state: {
     countries,
+    gameType: null,
+    options: {
+      pan: null,
+      enter: null
+    },
     gameOver: false,
     leaflet: null,
     listActive: false,
@@ -58,6 +63,12 @@ var store = new Vuex.Store({
     gameOver (state) {
       state.gameOver = true;
     },
+    setGameType (state, type) {
+      state.gameType = type;
+    },
+    setOptions (state, options) {
+      state.options = options;
+    },
     countIndependent (state) {
       for (let i = 0; i < state.countries.length; i++) {
         if (state.countries[i].independent) {
@@ -96,7 +107,9 @@ var store = new Vuex.Store({
             }
           }
 
-          state.leaflet.panTo(new leaflet.LatLng(state.countries[index].latlng[0], state.countries[index].latlng[1]));
+          if (state.options.pan) {
+            state.leaflet.panTo(new leaflet.LatLng(state.countries[index].latlng[0], state.countries[index].latlng[1]));
+          }
 
           break;
         }
@@ -117,7 +130,9 @@ var store = new Vuex.Store({
             }
           }
 
-          state.leaflet.panTo(new leaflet.LatLng(state.countries[index].latlng[0], state.countries[index].latlng[1]));
+          if (state.options.pan) {
+            state.leaflet.panTo(new leaflet.LatLng(state.countries[index].latlng[0], state.countries[index].latlng[1]));
+          }
 
           break;
         }

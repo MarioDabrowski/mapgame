@@ -1,7 +1,8 @@
 <template>
   <div class="app">
-    <div class="app__header">
-      <Timer />
+    <Menu />
+    <div class="app__header"  v-if="$store.state.gameType">
+      <HeaderLeft />
       <AnswerBox />
       <Progress />
       <ColumnHeadings />
@@ -12,7 +13,8 @@
 </template>
 
 <script>
-import Timer from './components/Timer';
+import Menu from './components/Menu';
+import HeaderLeft from './components/HeaderLeft';
 import AnswerBox from './components/AnswerBox';
 import Progress from './components/Progress';
 import ColumnHeadings from './components/ColumnHeadings';
@@ -24,8 +26,12 @@ export default {
   mounted () {
     this.$store.commit('populateContinents');
     this.$store.commit('countIndependent');
+
+    this.$store.watch( state => state.gameType, (newValue, oldValue) => {
+      this.$store.state.leaflet.invalidateSize();
+    });
   },
-  components: { ColumnHeadings, Timer, AnswerBox, Progress, List, WorldMap }
+  components: { Menu, ColumnHeadings, HeaderLeft, AnswerBox, Progress, List, WorldMap },
 }
 </script>
 
@@ -65,5 +71,47 @@ export default {
     z-index: 10;
     flex-shrink: 0;
     flex-wrap: wrap;
+  }
+
+  .btn-1 {
+    background: white;
+    z-index: 500;
+    padding: 6px 14px;
+    font-size: 12px;
+    border: 0;
+    border-radius: 4px;
+    cursor: pointer;
+    border: 1px solid #959595;
+    outline: none;
+    transition: background 0.2s;
+  }
+
+  .btn-1:hover,
+  .btn-1--active {
+    background: #e8e8e8;
+  }
+
+  .btn-1[disabled] {
+    opacity: 0.4;
+    cursor: default;
+  }
+
+  .btn-2 {
+    background: white;
+    z-index: 500;
+    padding: 12px 28px;
+    font-size: 14px;
+    border: 0;
+    border-radius: 4px;
+    cursor: pointer;
+    border: 1px solid #959595;
+    outline: none;
+    transition: background 0.2s;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  .btn-2:hover {
+    background: #e8e8e8;
   }
 </style>

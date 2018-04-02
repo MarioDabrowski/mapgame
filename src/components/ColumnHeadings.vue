@@ -5,11 +5,11 @@
         <div class="list__col__heading__title">{{continent.location}}</div>
 
         <div class="list__col__heading__count-wrapper">
-          <div class="list__col__heading__count">
+          <div class="list__col__heading__count" v-if="$store.state.gameType === 'countries' || $store.state.gameType === 'countriesCapitals'">
             <div class="list__col__heading__count__number">{{continent.correctCountries}}<span>/</span>{{continent.countries.length}}</div>
             <div class="list__col__heading__count__title">Countries</div>
           </div>
-          <div class="list__col__heading__count">
+          <div class="list__col__heading__count" v-if="$store.state.gameType === 'capitals' || $store.state.gameType === 'countriesCapitals'">
             <div class="list__col__heading__count__number">{{continent.correctCapitals}}<span>/</span>{{continent.countries.length}}</div>
             <div class="list__col__heading__count__title">Capitals</div>
           </div>
@@ -26,7 +26,7 @@ export default {
 } // export default
 
 </script>
-<style>
+<style scolped>
   .columnHeadings {
     width: 100%;
     display: flex;
@@ -106,39 +106,5 @@ export default {
     position: relative;
     font-size: 13px;
     color: grey;
-  }
-
-  .list__col__item:after {
-    position: absolute;
-    bottom: 0;
-    left: -30px;
-    width: calc(100% + 30px);
-    height: 0;
-    content: '';
-    border-bottom: 1px dashed lightgrey;
-  }
-
-  .list__col__item--active {
-    background: yellow;
-  }
-
-  .list__col__item__name {
-    font-size: 13px;
-  }
-
-  .list__col__item__name:last-child {
-    font-size: 12px;
-    color: green;
-  }
-
-  .list__col__item__name--active {
-    color: green;
-  }
-
-  .list__col__ol {
-    overflow-y: scroll;
-    margin: 0;
-    padding: 0 0 0 30px;
-    transform: translateZ(0);
   }
 </style>
