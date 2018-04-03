@@ -8,6 +8,14 @@
         <button class="btn-1 menu-section__item" :class="{'btn-1--active': gameType === 'countriesCapitals'}" @click="gameType = 'countriesCapitals'">Countries & Capitals</button>
       </div>
       <div class="menu-section">
+        <div class="menu-section__title">Timed Game:</div>
+        <button class="btn-1 menu-section__item" :class="{'btn-1--active': timeLimit === null}" @click="timeLimit = null">Unlimited</button>
+        <button class="btn-1 menu-section__item" :class="{'btn-1--active': timeLimit === 600}" @click="timeLimit = 600">10:00</button>
+        <button class="btn-1 menu-section__item" :class="{'btn-1--active': timeLimit === 1200}" @click="timeLimit = 1200">20:00</button>
+        <button class="btn-1 menu-section__item" :class="{'btn-1--active': timeLimit === 1800}" @click="timeLimit = 1800">30:00</button>
+        <p class="menu-section__details">Time will begin after first correct answer.</p>
+      </div>
+      <div class="menu-section">
         <div class="menu-section__title">Options:</div>
         <div class="menu-section__item">
           <label class="select"><input type="checkbox" v-model="pan" :checked="pan">Auto pan map on input</label>
@@ -28,12 +36,14 @@ export default {
     return {
       gameType: 'countries',
       enter: true,
-      pan: true
+      pan: true,
+      timeLimit: null
     }
   },
   methods: {
     startGame () {
       this.$store.commit('setGameType', this.gameType);
+      this.$store.commit('setTimeLimit', this.timeLimit);
       this.$store.commit('setOptions', {
         pan: this.pan,
         enter: this.enter
@@ -80,6 +90,10 @@ export default {
     font-size: 14px;
     margin-bottom: 10px;
     font-weight: bold;
+  }
+
+  .menu-section__details {
+    font-size: 13px;
   }
 
   .menu-section__item {

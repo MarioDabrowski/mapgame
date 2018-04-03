@@ -27,7 +27,7 @@ export default {
     this.$store.commit('populateContinents');
     this.$store.commit('countIndependent');
 
-    this.$store.watch( state => state.gameType, (newValue, oldValue) => {
+    this.$store.watch( state => state.gameType, () => {
       this.$store.state.leaflet.invalidateSize();
     });
   },

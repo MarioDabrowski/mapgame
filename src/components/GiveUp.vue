@@ -20,7 +20,7 @@ export default {
     },
     setMarker (i, name) {      
       var myIcon = leaflet.divIcon({ 
-        iconSize: new L.Point(62, 4), 
+        iconSize: new leaflet.Point(62, 4), 
         html: name,
         className: 'label'
       });

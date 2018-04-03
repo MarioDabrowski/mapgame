@@ -37,6 +37,8 @@ export default {
 
   .list__col {
     width: 16.666666667%;
+    display: flex;
+    align-items: stretch;
   }
 
   .list__col:first-child {
@@ -49,6 +51,10 @@ export default {
     padding: 10px 0;
     font-weight: bold;
     background: url('./../assets/topo_pattern.png') 0 0 repeat;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
   }
 
   .list__col__heading

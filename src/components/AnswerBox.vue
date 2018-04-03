@@ -85,7 +85,7 @@ export default {
         }
       }
     },
-    submitAnswer (e) {
+    submitAnswer () {
       if (this.inputValue) {
         const countries = this.$store.state.countries;
         this.breakLoop = false;

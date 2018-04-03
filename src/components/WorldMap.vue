@@ -40,7 +40,7 @@ export default {
     // ----------------------
 
     leaflet.geoJson(countryBoundaries, {
-      style: function (feature, layer) {
+      style: function (feature) {
         return {
           weight: 0.8,
           opacity: 0.2,
@@ -55,7 +55,7 @@ export default {
     // Game type selected
     // ------------------
 
-    this.$store.watch( state => state.gameType, (newValue, oldValue) => {
+    this.$store.watch( state => state.gameType, () => {
       
       // Add country pins
       var redIcon = leaflet.icon({
@@ -150,11 +150,8 @@ export default {
 .leaflet-tile,
 .leaflet-marker-icon,
 .leaflet-marker-shadow {
-	-webkit-user-select: none;
-	   -moz-user-select: none;
-	        user-select: none;
-	  -webkit-user-drag: none;
-	}
+	user-select: none;
+}
 /* Safari renders non-retina tile on retina better with this, but Chrome is worse */
 .leaflet-safari .leaflet-tile {
 	image-rendering: -webkit-optimize-contrast;
@@ -210,14 +207,14 @@ export default {
 .leaflet-zoom-box {
 	width: 0;
 	height: 0;
-	-moz-box-sizing: border-box;
-	     box-sizing: border-box;
+	box-sizing: border-box;
 	z-index: 800;
-	}
+}
+
 /* workaround for https://bugzilla.mozilla.org/show_bug.cgi?id=888319 */
 .leaflet-overlay-pane svg {
 	-moz-user-select: none;
-	}
+}
 
 .leaflet-pane         { z-index: 400; }
 
@@ -293,42 +290,37 @@ export default {
 
 .leaflet-fade-anim .leaflet-tile {
 	will-change: opacity;
-	}
+}
+
 .leaflet-fade-anim .leaflet-popup {
 	opacity: 0;
-	-webkit-transition: opacity 0.2s linear;
-	   -moz-transition: opacity 0.2s linear;
-	     -o-transition: opacity 0.2s linear;
-	        transition: opacity 0.2s linear;
-	}
+  transition: opacity 0.2s linear;
+}
+
 .leaflet-fade-anim .leaflet-map-pane .leaflet-popup {
-	opacity: 1;
-	}
+  opacity: 1;
+}
+
 .leaflet-zoom-animated {
-	-webkit-transform-origin: 0 0;
-	    -ms-transform-origin: 0 0;
-	        transform-origin: 0 0;
-	}
+	transform-origin: 0 0;
+}
+
 .leaflet-zoom-anim .leaflet-zoom-animated {
 	will-change: transform;
-	}
+}
+
 .leaflet-zoom-anim .leaflet-zoom-animated {
-	-webkit-transition: -webkit-transform 0.25s cubic-bezier(0,0,0.25,1);
-	   -moz-transition:    -moz-transform 0.25s cubic-bezier(0,0,0.25,1);
-	     -o-transition:      -o-transform 0.25s cubic-bezier(0,0,0.25,1);
-	        transition:         transform 0.25s cubic-bezier(0,0,0.25,1);
-	}
+  transition: transform 0.25s cubic-bezier(0,0,0.25,1);
+}
+
 .leaflet-zoom-anim .leaflet-tile,
 .leaflet-pan-anim .leaflet-tile {
-	-webkit-transition: none;
-	   -moz-transition: none;
-	     -o-transition: none;
-	        transition: none;
-	}
+  transition: none;
+}
 
 .leaflet-zoom-anim .leaflet-zoom-hide {
-	visibility: hidden;
-	}
+  visibility: hidden;
+}
 
 
 /* cursors */
@@ -559,9 +551,7 @@ export default {
 	font-size: 11px;
 	white-space: nowrap;
 	overflow: hidden;
-	-moz-box-sizing: border-box;
-	     box-sizing: border-box;
-
+  box-sizing: border-box;
 	background: #fff;
 	background: rgba(255, 255, 255, 0.5);
 	}
@@ -618,14 +608,8 @@ export default {
 	width: 17px;
 	height: 17px;
 	padding: 1px;
-
 	margin: -10px auto 0;
-
-	-webkit-transform: rotate(45deg);
-	   -moz-transform: rotate(45deg);
-	    -ms-transform: rotate(45deg);
-	     -o-transform: rotate(45deg);
-	        transform: rotate(45deg);
+	transform: rotate(45deg);
 	}
 .leaflet-popup-content-wrapper,
 .leaflet-popup-tip {

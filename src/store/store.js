@@ -10,6 +10,8 @@ var store = new Vuex.Store({
   state: {
     countries,
     gameType: null,
+    timeLimit: null,
+    countdownEvent: null,
     options: {
       pan: null,
       enter: null
@@ -62,9 +64,15 @@ var store = new Vuex.Store({
   mutations: {
     gameOver (state) {
       state.gameOver = true;
+      if (state.countdownEvent) {
+        clearInterval(state.countdownEvent);
+      }
     },
     setGameType (state, type) {
       state.gameType = type;
+    },
+    setTimeLimit (state, limit) {
+      state.timeLimit = limit;
     },
     setOptions (state, options) {
       state.options = options;
@@ -114,6 +122,23 @@ var store = new Vuex.Store({
           break;
         }
       }
+
+      // ---------------
+      // Begin the clock
+      // ---------------
+
+      if (!state.countdownEvent) {
+        if (state.timeLimit > 0) {
+          state.countdownEvent = window.setInterval(() => {
+            state.timeLimit -= 1;
+    
+            if (state.timeLimit <= 0) {
+              state.gameOver = true;
+              clearInterval(state.countdownEvent);
+            }
+          }, 1000);
+        }
+      }
     },
     markCapital (state, index) {
       state.countries[index].answeredCapital = true
@@ -135,6 +160,23 @@ var store = new Vuex.Store({
           }
 
           break;
+        }
+      }
+
+      // ---------------
+      // Begin the clock
+      // ---------------
+
+      if (!state.countdownEvent) {
+        if (state.timeLimit > 0) {
+          state.countdownEvent = window.setInterval(() => {
+            state.timeLimit -= 1;
+    
+            if (state.timeLimit <= 0) {
+              state.gameOver = true;
+              clearInterval(state.countdownEvent);
+            }
+          }, 1000);
         }
       }
     },

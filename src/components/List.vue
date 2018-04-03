@@ -38,7 +38,6 @@ export default {
   name: 'List',
   methods: {
     speak (name) {
-      console.log(responsiveVoice);
       responsiveVoice.speak(name, "US English Male");
     }
   }
@@ -242,6 +241,7 @@ export default {
     padding: 0 0 0 30px;
     transform: translateZ(0);
     height: 100%;
+    width: 100%;
     list-style: none;
     padding-left: 0;
   }
