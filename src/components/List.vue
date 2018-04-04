@@ -8,8 +8,8 @@
               <template v-if="country.answeredCountry || $store.state.gameOver">{{ country.name }}</template>
               &nbsp;
             </div>
-            <div class="location__audio" @click="speak(country.name)">
-              <svg viewBox="0 0 24 24" v-if="country.answeredCountry || $store.state.gameOver">
+            <div class="location__audio">
+              <svg viewBox="0 0 24 24" v-if="country.answeredCountry || $store.state.gameOver" @click="speak(country.name)">
                 <path d="M7,9V15H11L16,20V4L11,9H7Z" />
               </svg>
             </div>
@@ -201,7 +201,6 @@ export default {
   }
 
   .location__audio {
-    cursor: pointer;
     margin-left: auto;
     padding-top: 2px;
     border-left: 1px dotted #ededed;
@@ -215,6 +214,7 @@ export default {
   .location__audio svg {
     width: 18px;
     height: 18px;
+    cursor: pointer;
   }
 
   .location__audio:hover path {

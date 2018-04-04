@@ -1,7 +1,7 @@
 <template>
   <div class="answer-box">
-    <input type="text" v-if="$store.state.options.enter" v-model="inputValue" v-on:keyup="submitAnswer" :disabled="$store.state.gameOver" />
-    <input type="text" v-else v-model="inputValue" v-on:keyup.enter="submitAnswer" :disabled="$store.state.gameOver" />
+    <input type="text" ref="answerInput" v-if="$store.state.options.enter" v-model="inputValue" v-on:keyup="submitAnswer" :disabled="$store.state.gameOver" />
+    <input type="text" ref="answerInput" v-else v-model="inputValue" v-on:keyup.enter="submitAnswer" :disabled="$store.state.gameOver" />
     <div class="view">
       <button class="btn-1" @click="toggleList">Toggle List</button>
     </div>
@@ -16,6 +16,9 @@ export default {
       inputValue: '',
       breakLoop: false
     }
+  },
+  mounted() {
+    this.$refs.answerInput.focus();
   },
   methods: {
     toggleList () {

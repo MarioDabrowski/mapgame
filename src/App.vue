@@ -1,6 +1,7 @@
 <template>
   <div class="app">
     <Menu />
+    <Summary />
     <div class="app__header"  v-if="$store.state.gameType">
       <HeaderLeft />
       <AnswerBox />
@@ -20,6 +21,7 @@ import Progress from './components/Progress';
 import ColumnHeadings from './components/ColumnHeadings';
 import List from './components/List';
 import WorldMap from './components/WorldMap';
+import Summary from './components/Summary';
 
 export default {
   name: 'app',
@@ -31,7 +33,7 @@ export default {
       this.$store.state.leaflet.invalidateSize();
     });
   },
-  components: { Menu, ColumnHeadings, HeaderLeft, AnswerBox, Progress, List, WorldMap },
+  components: { Menu, ColumnHeadings, HeaderLeft, AnswerBox, Progress, List, WorldMap, Summary },
 }
 </script>
 

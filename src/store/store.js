@@ -64,9 +64,7 @@ var store = new Vuex.Store({
   mutations: {
     gameOver (state) {
       state.gameOver = true;
-      if (state.countdownEvent) {
-        clearInterval(state.countdownEvent);
-      }
+      stopClock(state);
     },
     setGameType (state, type) {
       state.gameType = type;
@@ -123,22 +121,8 @@ var store = new Vuex.Store({
         }
       }
 
-      // ---------------
-      // Begin the clock
-      // ---------------
-
-      if (!state.countdownEvent) {
-        if (state.timeLimit > 0) {
-          state.countdownEvent = window.setInterval(() => {
-            state.timeLimit -= 1;
-    
-            if (state.timeLimit <= 0) {
-              state.gameOver = true;
-              clearInterval(state.countdownEvent);
-            }
-          }, 1000);
-        }
-      }
+      beginClock(state);
+      checkForCompleteGame(state);
     },
     markCapital (state, index) {
       state.countries[index].answeredCapital = true
@@ -163,22 +147,8 @@ var store = new Vuex.Store({
         }
       }
 
-      // ---------------
-      // Begin the clock
-      // ---------------
-
-      if (!state.countdownEvent) {
-        if (state.timeLimit > 0) {
-          state.countdownEvent = window.setInterval(() => {
-            state.timeLimit -= 1;
-    
-            if (state.timeLimit <= 0) {
-              state.gameOver = true;
-              clearInterval(state.countdownEvent);
-            }
-          }, 1000);
-        }
-      }
+      beginClock(state);
+      checkForCompleteGame(state);
     },
     clearMarker (state, index) {
       state.leaflet.removeLayer(state.countries[index].marker);
@@ -195,5 +165,42 @@ var store = new Vuex.Store({
     }
   }
 })
+
+function beginClock(state) {
+  if (!state.countdownEvent) {
+    if (state.timeLimit > 0) {
+      state.countdownEvent = window.setInterval(() => {
+        state.timeLimit -= 1;
+
+        if (state.timeLimit <= 0) {
+          state.gameOver = true;
+          clearInterval(state.countdownEvent);
+        }
+      }, 1000);
+    }
+  }
+}
+
+function stopClock(state) {
+  if (state.countdownEvent) {
+    clearInterval(state.countdownEvent);
+  }
+}
+
+function checkForCompleteGame(state) {
+  if (state.gameType === 'countries') {
+    if (state.correctCountries === state.independentCountries) {
+      store.commit('gameOver');
+    }
+  } else if (state.gameType === 'capitals') {
+    if (state.correctCapitals === state.independentCountries) {
+      store.commit('gameOver');
+    }
+  } else {
+    if (state.correctCapitals === state.independentCountries && state.correctCountries === state.independentCountries) {
+      store.commit('gameOver');
+    }
+  }
+}
 
 export default store;
