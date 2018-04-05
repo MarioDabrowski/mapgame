@@ -1,7 +1,10 @@
 <template>
   <div class="answer-box">
-    <input type="text" ref="answerInput" v-if="$store.state.options.enter" v-model="inputValue" v-on:keyup="submitAnswer" :disabled="$store.state.gameOver" />
-    <input type="text" ref="answerInput" v-else v-model="inputValue" v-on:keyup.enter="submitAnswer" :disabled="$store.state.gameOver" />
+    <div class="input-wrapper">
+      <div class="duplicate-answer" ref="duplicate-answer">Already counted</div>
+      <input type="text" ref="answerInput" v-if="$store.state.options.enter" v-model="inputValue" v-on:keyup="submitAnswer" :disabled="$store.state.gameOver" />
+      <input type="text" ref="answerInput" v-else v-model="inputValue" v-on:keyup.enter="submitAnswer" :disabled="$store.state.gameOver" />
+    </div>
     <div class="view">
       <button class="btn-1" @click="toggleList">Toggle List</button>
     </div>
@@ -21,6 +24,15 @@ export default {
     this.$refs.answerInput.focus();
   },
   methods: {
+    dupicateAnswer () {
+      let that = this;
+      this.$refs['duplicate-answer'].classList.add('duplicate-answer--active');
+      let interval = setInterval(function () {
+        that.$refs['duplicate-answer'].classList.remove('duplicate-answer--active');
+        clearInterval(interval);
+        that.$refs.answerInput.value = '';
+      }, 700);
+    },
     toggleList () {
       this.$store.commit('toggleList');
     },
@@ -39,24 +51,32 @@ export default {
     checkCountry (countries, i) {
       // If the input matches a country name
       if(countries[i].name.toLowerCase() === this.inputValue.toLowerCase()) {
-        if (countries[i].independent && !countries[i].answeredCountry) {
-          this.$store.commit('markCountry', i);
-          this.inputValue = '';
+        if (countries[i].independent) {
+          if (!countries[i].answeredCountry) {
+            this.$store.commit('markCountry', i);
+            this.inputValue = '';
 
-          this.updatePin(countries, i);
-          this.breakLoop = true;
+            this.updatePin(countries, i);
+            this.breakLoop = true;
+          } else {
+            this.dupicateAnswer();
+          }
         }
       }
 
       // If the input matches an alternative spelling of the country name
       for (var a = 0; a < countries[i].altSpellings.length; a++) {
         if(countries[i].altSpellings[a].toLowerCase() === this.inputValue.toLowerCase()) {
-          if (countries[i].independent && !countries[i].answeredCountry) {
-            this.$store.commit('markCountry', i);
-            this.inputValue = '';
+          if (countries[i].independent) {
+            if (!countries[i].answeredCountry) {
+              this.$store.commit('markCountry', i);
+              this.inputValue = '';
 
-            this.updatePin(countries, i);
-            this.breakLoop = true;
+              this.updatePin(countries, i);
+              this.breakLoop = true;
+            } else {
+              this.dupicateAnswer();
+            }
           }
         }
       }
@@ -64,12 +84,16 @@ export default {
     checkCapital (countries, i) {
       // If the input matches the capital name
       if(countries[i].capital.toLowerCase() === this.inputValue.toLowerCase()) {
-        if (countries[i].independent && !countries[i].answeredCapital) {
-          this.$store.commit('markCapital', i);
-          this.inputValue = '';
+        if (countries[i].independent) {
+          if (!countries[i].answeredCapital) {
+            this.$store.commit('markCapital', i);
+            this.inputValue = '';
 
-          this.updatePin(countries, i);
-          this.breakLoop = true;
+            this.updatePin(countries, i);
+            this.breakLoop = true;
+          } else {
+            this.dupicateAnswer();
+          }
         }
       }
 
@@ -77,12 +101,16 @@ export default {
       if(countries[i].altCapitalSpellings) {
         for (var b = 0; b < countries[i].altCapitalSpellings.length; b++) {
           if(countries[i].altCapitalSpellings[b].toLowerCase() === this.inputValue.toLowerCase()) {
-            if (countries[i].independent && !countries[i].answeredCapital) {
-              this.$store.commit('markCapital', i);
-              this.inputValue = '';
-              
-              this.updatePin(countries, i);
-              this.breakLoop = true;
+            if (countries[i].independent) {
+              if (!countries[i].answeredCapital) {
+                this.$store.commit('markCapital', i);
+                this.inputValue = '';
+                
+                this.updatePin(countries, i);
+                this.breakLoop = true;
+              } else {
+                this.dupicateAnswer();
+              }
             }
           }
         }
@@ -122,8 +150,37 @@ export default {
     left: -1px;
   }
 
-  .answer-box input {
+  .input-wrapper {
+    display: inline-block;
+    position: relative;
     width: 75%;
+  }
+
+  .duplicate-answer {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+    width: 100%;
+    height: 100%;
+    background: #f2e5d5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    opacity: 0;
+    transition: top 0s 0.15s, left 0s 0.15s, opacity 0.15s;
+    font-size: 14px;
+  }
+
+  .duplicate-answer--active {
+    opacity: 1;
+    top: 0;
+    left: 0;
+    transition: top 0s, left 0s, opacity 0.15s;
+  }
+
+  .answer-box input {
+    width: 100%;
     height: 50px;
     font-size: 30px;
     text-align: center;
