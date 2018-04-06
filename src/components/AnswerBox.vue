@@ -24,14 +24,16 @@ export default {
     this.$refs.answerInput.focus();
   },
   methods: {
-    dupicateAnswer () {
-      let that = this;
-      this.$refs['duplicate-answer'].classList.add('duplicate-answer--active');
-      let interval = setInterval(function () {
-        that.$refs['duplicate-answer'].classList.remove('duplicate-answer--active');
-        clearInterval(interval);
-        that.$refs.answerInput.value = '';
-      }, 700);
+    dupicateAnswer (answer) {
+      if (answer !== 'dominica' && answer !== 'niger' && answer !== 'tunis') {
+        let that = this;
+        this.$refs['duplicate-answer'].classList.add('duplicate-answer--active');
+        let interval = setInterval(function () {
+          that.$refs['duplicate-answer'].classList.remove('duplicate-answer--active');
+          clearInterval(interval);
+          that.$refs.answerInput.value = '';
+        }, 700);
+      }
     },
     toggleList () {
       this.$store.commit('toggleList');
@@ -49,8 +51,9 @@ export default {
       }
     },
     checkCountry (countries, i) {
+      let answer = this.inputValue.toLowerCase();
       // If the input matches a country name
-      if(countries[i].name.toLowerCase() === this.inputValue.toLowerCase()) {
+      if(countries[i].name.toLowerCase() === answer) {
         if (countries[i].independent) {
           if (!countries[i].answeredCountry) {
             this.$store.commit('markCountry', i);
@@ -59,14 +62,16 @@ export default {
             this.updatePin(countries, i);
             this.breakLoop = true;
           } else {
-            this.dupicateAnswer();
+            this.dupicateAnswer(answer);
           }
         }
       }
 
       // If the input matches an alternative spelling of the country name
       for (var a = 0; a < countries[i].altSpellings.length; a++) {
-        if(countries[i].altSpellings[a].toLowerCase() === this.inputValue.toLowerCase()) {
+        let answer = this.inputValue.toLowerCase();
+
+        if(countries[i].altSpellings[a].toLowerCase() === answer) {
           if (countries[i].independent) {
             if (!countries[i].answeredCountry) {
               this.$store.commit('markCountry', i);
@@ -75,15 +80,17 @@ export default {
               this.updatePin(countries, i);
               this.breakLoop = true;
             } else {
-              this.dupicateAnswer();
+              this.dupicateAnswer(answer);
             }
           }
         }
       }
     },
     checkCapital (countries, i) {
+      let answer = this.inputValue.toLowerCase();
+
       // If the input matches the capital name
-      if(countries[i].capital.toLowerCase() === this.inputValue.toLowerCase()) {
+      if(countries[i].capital.toLowerCase() === answer) {
         if (countries[i].independent) {
           if (!countries[i].answeredCapital) {
             this.$store.commit('markCapital', i);
@@ -92,15 +99,17 @@ export default {
             this.updatePin(countries, i);
             this.breakLoop = true;
           } else {
-            this.dupicateAnswer();
+            this.dupicateAnswer(answer);
           }
         }
       }
 
       // If the input matches an alternative spelling of a capital name
       if(countries[i].altCapitalSpellings) {
+        let answer = this.inputValue.toLowerCase();
+
         for (var b = 0; b < countries[i].altCapitalSpellings.length; b++) {
-          if(countries[i].altCapitalSpellings[b].toLowerCase() === this.inputValue.toLowerCase()) {
+          if(countries[i].altCapitalSpellings[b].toLowerCase() === answer) {
             if (countries[i].independent) {
               if (!countries[i].answeredCapital) {
                 this.$store.commit('markCapital', i);
@@ -109,7 +118,7 @@ export default {
                 this.updatePin(countries, i);
                 this.breakLoop = true;
               } else {
-                this.dupicateAnswer();
+                this.dupicateAnswer(answer);
               }
             }
           }
