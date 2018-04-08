@@ -25,7 +25,7 @@ export default {
       attributionControl: false
     });
 
-    this.$store.commit('initializeMap', worldMap)
+    this.$store.commit('initializeMap', worldMap);
 
     // ---------------------------------------------
     // Add map tiles + prevent panning out of bounds
@@ -56,22 +56,7 @@ export default {
     // ------------------
 
     this.$store.watch( state => state.gameType, () => {
-      
-      // Add country pins
-      var redIcon = leaflet.icon({
-        iconUrl: pin,
-        iconSize:     [9, 16], // size of the icon
-        className: 'marker-countries'
-      });
-
-      for (var i = 0; i < this.$store.state.countries.length; i++) {
-        if(this.$store.state.countries[i].independent) {
-          this.$store.state.countries[i].marker = leaflet.marker(
-            [this.$store.state.countries[i].latlng[0], this.$store.state.countries[i].latlng[1]],
-            {icon: redIcon}
-          ).addTo(worldMap);
-        }
-      }
+      this.$store.commit('populateMarkers');
     })
 
   } // mounted

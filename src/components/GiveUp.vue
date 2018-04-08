@@ -1,58 +1,68 @@
 <template>
-  <button class="btn-1" :disabled="$store.state.gameOver" @click="endGame">Give Up</button>
+  <button class="btn-1" @click="restartGame" v-if="$store.state.gameOver">Restart</button>
+  <button class="btn-1" @click="endGame" v-else>Give Up</button>
 </template>
 
 <script>
 import leaflet from 'leaflet';
+import countries from './../assets/countries.js';
 
 export default {
   name: 'HeaderLeft',
+  data() {
+    return {
+      endgameMarkers: []
+    }
+  },
   methods: {
-    getCountryName (i, that) {
-      if (!that.$store.state.countries[i].answeredCountry) {
-        return that.$store.state.countries[i].name;
+    restartGame () {
+      this.$store.dispatch('restartGame');
+      for (let i = 0; i < this.endgameMarkers.length; i++) {
+        this.$store.state.leaflet.removeLayer(this.endgameMarkers[i]);
       }
     },
-    getCapitalName (i, that) {
-      if (!that.$store.state.countries[i].answeredCapital) {
-        return that.$store.state.countries[i].capital;
-      }
-    },
-    setMarker (i, name) {      
+    setMarker (i, a, name) {
       var myIcon = leaflet.divIcon({ 
         iconSize: new leaflet.Point(62, 4), 
         html: name,
-        className: 'label'
+        className: 'label',
       });
-      leaflet.marker([this.$store.state.countries[i].latlng[0], this.$store.state.countries[i].latlng[1]], {icon: myIcon}).addTo(this.$store.state.leaflet)
+      this.endgameMarkers.push(leaflet.marker([this.$store.state.continents[i].countries[a].latlng[0], this.$store.state.continents[i].countries[a].latlng[1]], {icon: myIcon}))
     },
-    endGame: function () {
-      if (!this.$store.state.gameOver) {
-        for (var i = 0; i < this.$store.state.countries.length; i++) {
-          if(this.$store.state.countries[i].independent) {
+    endGame: function () {    
+      let that = this;
+        
+      for (let i = 0; i < this.$store.state.continents.length; i++) {
+        for (let a = 0; a < this.$store.state.continents[i].countries.length; a++) {
+          if(this.$store.state.continents[i].countries[a].independent) {
 
             if (this.$store.state.gameType === 'countries') {
-              if (!this.$store.state.countries[i].answeredCountry) {
-                this.setMarker(i, this.getCountryName(i, this));
+              if (!this.$store.state.continents[i].countries[a].answeredCountry) {
+                this.setMarker(i, a, this.$store.state.continents[i].countries[a].name);
               }
             } else if (this.$store.state.gameType === 'capitals') {
-              if (!this.$store.state.countries[i].answeredCapital) {
-                this.setMarker(i, this.getCapitalName(i, this));
+              if (!this.$store.state.continents[i].countries[a].answeredCapital) {
+                this.setMarker(i, a, this.$store.state.continents[i].countries[a].name + ', ' + this.$store.state.continents[i].countries[a].capital);
               }
             } else {
-              if (!this.$store.state.countries[i].answeredCountry && !this.$store.state.countries[i].answeredCapital) {
-                this.setMarker(i, this.getCountryName(i, this) + ', ' + this.getCapitalName(i, this));
-              } else if (!this.$store.state.countries[i].answeredCountry) {
-                this.setMarker(i, this.getCountryName(i, this));
-              } else {
-                this.setMarker(i, this.getCapitalName(i, this));
+              if (!this.$store.state.continents[i].countries[a].answeredCountry && !this.$store.state.continents[i].countries[a].answeredCapital) {
+                this.setMarker(i, a, this.$store.state.continents[i].countries[a].name + ', ' + this.$store.state.continents[i].countries[a].capital);
+              } else if (!this.$store.state.continents[i].countries[a].answeredCountry) {
+                this.setMarker(i, a, this.$store.state.continents[i].countries[a].name);
+              } else if (!this.$store.state.continents[i].countries[a].answeredCapital) {
+                this.setMarker(i, a, this.$store.state.continents[i].countries[a].capital);
               }
             }
 
-            this.$store.commit('gameOver');
           }
         }
       }
+    
+    for (let i = 0; i < this.endgameMarkers.length; i++) {
+      this.endgameMarkers[i].addTo(this.$store.state.leaflet);
+    }
+
+    this.$store.commit('gameOver');
     }
   },
 } // export default

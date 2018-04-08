@@ -16,13 +16,6 @@
         <p class="menu-section__details">Time will begin after first correct answer.</p>
       </div>
       <div class="menu-section">
-        <div class="menu-section__title">Options:</div>
-        <div class="menu-section__item">
-          <label class="select"><input type="checkbox" v-model="pan" :checked="pan">Auto pan map on input</label>
-          <label class="select"><input type="checkbox" v-model="enter" :checked="enter">Submit answer without pressing enter</label>
-        </div>
-      </div>
-      <div class="menu-section">
         <div class="btn-2" @click="startGame()">Start Game</div>
       </div>
     </div>
@@ -35,8 +28,6 @@ export default {
   data () {
     return {
       gameType: 'countries',
-      enter: true,
-      pan: true,
       timeLimit: null
     }
   },
@@ -44,10 +35,6 @@ export default {
     startGame () {
       this.$store.commit('setGameType', this.gameType);
       this.$store.commit('setTimeLimit', this.timeLimit);
-      this.$store.commit('setOptions', {
-        pan: this.pan,
-        enter: this.enter
-      });
     }
   }
 } // export default
@@ -102,17 +89,5 @@ export default {
 
   .menu-section__item:last-child {
     margin-right: 0;
-  }
-
-  .select {
-    font-size: 14px;
-    display: block;
-    margin-bottom: 6px;
-    cursor: pointer;
-  }
-
-  .select input {
-    margin-right: 10px;
-    outline: 0;
   }
 </style>

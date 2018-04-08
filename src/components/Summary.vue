@@ -5,7 +5,7 @@
         <div class="menu-section__title">Congratulations:</div>
       </div>
       <div class="menu-section">
-        <p class="menu-section__details" v-if="$store.state.timeLimit"><strong>Time:</strong> {{ $store.state.timeLimit }}</p>
+        <p class="menu-section__details" v-if="$store.state.timeLimit"><strong>Time:</strong> {{ $store.state.remainingTime }}</p>
         <p class="menu-section__details" v-if="$store.state.gameType === 'countries' || $store.state.gameType === 'countriesCapitals'"><strong>Countries:</strong> {{ $store.state.correctCountries }} / {{ $store.state.independentCountries }}</p>
         <p class="menu-section__details" v-if="$store.state.gameType === 'capitals' || $store.state.gameType === 'countriesCapitals'"><strong>Capitals:</strong> {{ $store.state.correctCapitals }} / {{ $store.state.independentCountries }}</p>
       </div>

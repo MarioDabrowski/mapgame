@@ -2,19 +2,20 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import countries from './../assets/countries.js';
 import pin from './../assets/pin_blue.png';
+import pinRed from './../assets/pin.png';
 import leaflet from 'leaflet';
 
 Vue.use(Vuex)
 
 var store = new Vuex.Store({
   state: {
-    countries,
     gameType: null,
     timeLimit: null,
+    remainingTime: null,
     countdownEvent: null,
     options: {
-      pan: null,
-      enter: null
+      pan: true,
+      enter: true
     },
     gameOver: false,
     leaflet: null,
@@ -61,23 +62,50 @@ var store = new Vuex.Store({
       }
     ]
   },
+  actions: {
+    restartGame (context) {
+      context.commit('resetGame');
+      context.commit('populateMarkers');
+    }
+  },
   mutations: {
     gameOver (state) {
       state.gameOver = true;
       stopClock(state);
+    },
+    resetGame (state) {
+      state.remainingTime = state.timeLimit;
+      state.gameOver = false;
+      state.correctCountries = 0;
+      state.correctCapitals = 0;
+
+      for (let i = 0; i < state.continents.length; i++) {
+        state.continents[i].correctCapitals = 0;
+        state.continents[i].correctCountries = 0;
+
+        for (let a = 0; a < state.continents[i].countries.length; a++) {
+          state.continents[i].countries[a].answeredCapital = false;
+          state.continents[i].countries[a].answeredCountry = false;
+          state.continents[i].countries[a].marker = null;
+        }
+      }
     },
     setGameType (state, type) {
       state.gameType = type;
     },
     setTimeLimit (state, limit) {
       state.timeLimit = limit;
+      state.remainingTime = limit;
     },
-    setOptions (state, options) {
-      state.options = options;
+    setOptionsPan (state) {
+      state.options.pan = !state.options.pan;
+    },
+    setOptionsEnter (state) {
+      state.options.enter = !state.options.enter;
     },
     countIndependent (state) {
-      for (let i = 0; i < state.countries.length; i++) {
-        if (state.countries[i].independent) {
+      for (let i = 0; i < countries.length; i++) {
+        if (countries[i].independent) {
           state.independentCountries += 1;
         }
       }
@@ -85,9 +113,9 @@ var store = new Vuex.Store({
     populateContinents (state) {
       // Split out the countries into seperate continent objects
       for (let i = 0; i < state.continents.length; i++) {
-        for (let a = 0; a < state.countries.length; a++) {
-          if(state.countries[a].region === state.continents[i].location && this.state.countries[a].independent) {
-            state.continents[i].countries.push(state.countries[a]);
+        for (let a = 0; a < countries.length; a++) {
+          if(countries[a].region === state.continents[i].location && countries[a].independent) {
+            state.continents[i].countries.push(countries[a]);
           }
         }
       }
@@ -98,62 +126,53 @@ var store = new Vuex.Store({
     initializeMap (state, reference) {
       state.leaflet = reference;
     },
-    markCountry (state, index) {
-      state.countries[index].answeredCountry = true;
+    markCountry (state, indexes) {
       state.correctCountries += 1;
-      
-      for (let i = 0; i < state.continents.length; i++) {
-        if (state.continents[i].location === state.countries[index].region) {
-          state.continents[i].correctCountries += 1;
+      state.continents[indexes[0]].correctCountries += 1;
+      state.continents[indexes[0]].countries[indexes[1]].answeredCountry = true;
 
-          for (let a = 0; a < state.continents[i].countries; a++) {
-            if (state.continents[i].countries[a].name === state.countries[index].name) {
-              state.continents[i].countries[a].answeredCountry = true;
-              break;
-            }
-          }
-
-          if (state.options.pan) {
-            state.leaflet.panTo(new leaflet.LatLng(state.countries[index].latlng[0], state.countries[index].latlng[1]));
-          }
-
-          break;
-        }
+      if (state.options.pan) {
+        state.leaflet.panTo(new leaflet.LatLng(state.continents[indexes[0]].countries[indexes[1]].latlng[0], state.continents[indexes[0]].countries[indexes[1]].latlng[1]));
       }
 
       beginClock(state);
       checkForCompleteGame(state);
     },
-    markCapital (state, index) {
-      state.countries[index].answeredCapital = true
+    markCapital (state, indexes) {
       state.correctCapitals += 1;
+      state.continents[indexes[0]].correctCapitals += 1;
+      state.continents[indexes[0]].countries[indexes[1]].answeredCapital = true;
 
-      for (let i = 0; i < state.continents.length; i++) {
-        if (state.continents[i].location === state.countries[index].region) {
-          state.continents[i].correctCapitals += 1;
-
-          for (let a = 0; a < state.continents[i].countries; a++) {
-            if (state.continents[i].countries[a].name === state.countries[index].name) {
-              state.continents[i].countries[a].answeredCapital = true;
-              break;
-            }
-          }
-
-          if (state.options.pan) {
-            state.leaflet.panTo(new leaflet.LatLng(state.countries[index].latlng[0], state.countries[index].latlng[1]));
-          }
-
-          break;
-        }
+      if (state.options.pan) {
+        state.leaflet.panTo(new leaflet.LatLng(state.continents[indexes[0]].countries[indexes[1]].latlng[0], state.continents[indexes[0]].countries[indexes[1]].latlng[1]));
       }
 
       beginClock(state);
       checkForCompleteGame(state);
     },
-    clearMarker (state, index) {
-      state.leaflet.removeLayer(state.countries[index].marker);
+    populateMarkers (state) {
+      var redIcon = leaflet.icon({
+        iconUrl: pinRed,
+        iconSize:     [9, 16], // size of the icon
+        className: 'marker-countries'
+      });
+
+      console.log('adding markers');
+
+      for (let i = 0; i < state.continents.length; i++) {
+        for (let a = 0; a < state.continents[i].countries.length; a++) {
+          state.continents[i].countries[a].marker = leaflet.marker(
+            [state.continents[i].countries[a].latlng[0], state.continents[i].countries[a].latlng[1]],
+            {icon: redIcon}
+          ).addTo(state.leaflet);
+        }
+      }
     },
-    changeMarker (state, index) {
+    clearMarker (state, indexes) {
+      state.leaflet.removeLayer(state.continents[indexes[0]].countries[indexes[1]].marker);
+      state.continents[indexes[0]].countries[indexes[1]].marker = null;
+    },
+    changeMarker (state, indexes) {
       var blueIcon = leaflet.icon({
         iconUrl: pin,
         iconSize:     [9, 16], // size of the icon
@@ -161,18 +180,18 @@ var store = new Vuex.Store({
         className: 'marker-countries'
       });
 
-      state.countries[index].marker.setIcon(blueIcon);
+      state.continents[indexes[0]].countries[indexes[1]].marker.setIcon(blueIcon);
     }
   }
 })
 
 function beginClock(state) {
   if (!state.countdownEvent) {
-    if (state.timeLimit > 0) {
+    if (state.remainingTime > 0) {
       state.countdownEvent = window.setInterval(() => {
-        state.timeLimit -= 1;
+        state.remainingTime -= 1;
 
-        if (state.timeLimit <= 0) {
+        if (state.remainingTime <= 0) {
           state.gameOver = true;
           clearInterval(state.countdownEvent);
         }

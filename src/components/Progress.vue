@@ -29,7 +29,7 @@ export default {
   }
 
   .progress {
-    margin-bottom: 24px;
+    margin-bottom: 10px;
   }
 
   .progress__countries {
