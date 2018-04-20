@@ -11,7 +11,6 @@
 
 <script>
 import Options from './../components/Options';
-import countries from './../assets/countries.js';
 
 export default {
   name: 'AnswerBox',
@@ -37,8 +36,10 @@ export default {
         }, 700);
       }
     },
-    updatePin (i, a) {
-      // Change markers based no game type
+    updatePin (i, a, name) {
+      this.$store.commit('updateLastAnswerPin', {x: this.$store.state.continents[i].countries[a].latlng[0], y: this.$store.state.continents[i].countries[a].latlng[1], name});
+
+      // Change markers based on game type
       if (this.$store.state.gameType === 'countriesCapitals') {
         if (this.$store.state.continents[i].countries[a].answeredCapital && this.$store.state.continents[i].countries[a].answeredCountry) {
           this.$store.commit('clearMarker', [i, a]);
@@ -56,7 +57,7 @@ export default {
           if (!this.$store.state.continents[i].countries[a].answeredCountry) {
             this.$store.commit('markCountry', [i, a]);
             this.inputValue = '';
-            this.updatePin(i, a);
+            this.updatePin(i, a, this.$store.state.continents[i].countries[a].name);
           } else {
             this.dupicateAnswer(answer);
           }
@@ -73,7 +74,7 @@ export default {
               this.$store.commit('markCountry', [i, a]);
               this.inputValue = '';
 
-              this.updatePin(i, a);
+              this.updatePin(i, a, this.$store.state.continents[i].countries[a].altSpellings[x]);
             } else {
               this.dupicateAnswer(answer);
             }
@@ -92,7 +93,7 @@ export default {
             this.$store.commit('markCapital', [i, a]);
             this.inputValue = '';
 
-            this.updatePin(i, a);
+            this.updatePin(i, a, this.$store.state.continents[i].countries[a].capital);
             this.breakLoop = true;
           } else {
             this.dupicateAnswer(answer);
@@ -109,7 +110,7 @@ export default {
                 this.$store.commit('markCapital', [i, a]);
                 this.inputValue = '';
                 
-                this.updatePin(i, a);
+                this.updatePin(i, a, this.$store.state.continents[i].countries[a].altCapitalSpellings[b]);
                 this.breakLoop = true;
               } else {
                 this.dupicateAnswer(answer);

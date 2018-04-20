@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import countries from './../assets/countries.js';
 import pin from './../assets/pin_blue.png';
 import pinRed from './../assets/pin.png';
+import pinGreen from './../assets/pin_green.png';
 import leaflet from 'leaflet';
 
 Vue.use(Vuex)
@@ -23,6 +24,10 @@ var store = new Vuex.Store({
     correctCountries: 0,
     correctCapitals: 0,
     independentCountries: 0,
+    lastCorrectAnswer: {
+      pin: null,
+      label: null
+    },
     continents: [
       {
         location: 'North America',
@@ -69,6 +74,24 @@ var store = new Vuex.Store({
     }
   },
   mutations: {
+    updateLastAnswerPin (state, details) {
+      var label = leaflet.divIcon({ 
+        iconSize: new leaflet.Point(62, 4), 
+        html: details.name,
+        className: 'label',
+      });
+      if (state.lastCorrectAnswer.label) state.leaflet.removeLayer(state.lastCorrectAnswer.label);
+      state.lastCorrectAnswer.label = leaflet.marker([details.x, details.y], {icon: label}).addTo(state.leaflet);;
+
+      var pin = leaflet.icon({
+        iconUrl: pinGreen,
+        iconSize:     [9, 16], // size of the icon
+        className: 'marker-countries'
+      });
+
+      if (state.lastCorrectAnswer.pin) state.leaflet.removeLayer(state.lastCorrectAnswer.pin);
+      state.lastCorrectAnswer.pin = leaflet.marker([details.x, details.y], {icon: pin}).addTo(state.leaflet);
+    },
     gameOver (state) {
       state.gameOver = true;
       stopClock(state);
@@ -156,8 +179,6 @@ var store = new Vuex.Store({
         iconSize:     [9, 16], // size of the icon
         className: 'marker-countries'
       });
-
-      console.log('adding markers');
 
       for (let i = 0; i < state.continents.length; i++) {
         for (let a = 0; a < state.continents[i].countries.length; a++) {

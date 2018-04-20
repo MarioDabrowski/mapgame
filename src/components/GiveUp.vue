@@ -5,7 +5,6 @@
 
 <script>
 import leaflet from 'leaflet';
-import countries from './../assets/countries.js';
 
 export default {
   name: 'HeaderLeft',
@@ -29,9 +28,7 @@ export default {
       });
       this.endgameMarkers.push(leaflet.marker([this.$store.state.continents[i].countries[a].latlng[0], this.$store.state.continents[i].countries[a].latlng[1]], {icon: myIcon}))
     },
-    endGame: function () {    
-      let that = this;
-        
+    endGame: function () {        
       for (let i = 0; i < this.$store.state.continents.length; i++) {
         for (let a = 0; a < this.$store.state.continents[i].countries.length; a++) {
           if(this.$store.state.continents[i].countries[a].independent) {

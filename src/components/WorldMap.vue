@@ -4,7 +4,6 @@
 
 <script>
 import countryBoundaries from './../assets/country_boundaries.js';
-import pin from './../assets/pin.png';
 import leaflet from 'leaflet';
 import './../assets/leaflet.zoomcss.js';
 
